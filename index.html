@@ -191,11 +191,35 @@ function renderProducts(){
    <b>${p.name}</b>
    <div class="price">${money(p.price)}</div>
    <div class="old">${money(p.old)}</div>
-   <button class="buy" onclick="alert('Đây là sản phẩm mẫu. Chưa có thanh toán thật.')">Xem tài khoản →</button>
+   <button class="buy" onclick="showProduct(${data.indexOf(p)})">Xem tài khoản →</button>
   </div>
  </article>`).join("")||"<p>Không tìm thấy tài khoản.</p>";
 }
-function chooseGame(g,el){
+function showProduct(index){
+  const p=data[index];
+  if(!p)return;
+
+  const old=document.getElementById("productDetail");
+  if(old)old.remove();
+
+  const box=document.createElement("div");
+  box.id="productDetail";
+  box.style.cssText="position:fixed;inset:0;background:#000b;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px";
+
+  box.innerHTML=`
+    <div style="background:white;color:#222;padding:20px;border-radius:18px;width:100%;max-width:450px;max-height:85vh;overflow:auto">
+      <button onclick="document.getElementById('productDetail').remove()">✕ Đóng</button>
+      <img src="${p.image||''}" style="width:100%;border-radius:12px;margin-top:15px">
+      <h2>${escapeHTML(p.name)}</h2>
+      <h2 style="color:#ed286b">${money(p.price)}</h2>
+      <p>Game: ${escapeHTML(p.game||'')}</p>
+      <p>${escapeHTML(p.description||'Chưa có mô tả')}</p>
+    </div>
+  `;
+
+  document.body.appendChild(box);
+}
+ function chooseGame(g,el){
  selected=g;
  document.querySelectorAll(".category").forEach(x=>x.classList.remove("active"));
  el.classList.add("active");
