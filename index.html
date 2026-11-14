@@ -178,6 +178,26 @@ let data=[];
 let selected="Tất cả";
 let profiles=[];
 let myProfile=null;
+ async function openAuth(){
+  const email = prompt("Nhập email của bạn:");
+  if(!email) return;
+
+  const password = prompt("Nhập mật khẩu:");
+  if(!password) return;
+
+  const {data,error} = await sb.auth.signInWithPassword({
+    email: email.trim(),
+    password: password
+  });
+
+  if(error){
+    alert("Đăng nhập thất bại: " + error.message);
+    return;
+  }
+
+  alert("Đăng nhập thành công!");
+  openTab("profile");
+}
  // CẤU HÌNH THANH TOÁN PDM GAMING
 const BANK_ID = "MB";
 const BANK_ACCOUNT = "08123456777777";
