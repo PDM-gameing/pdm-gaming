@@ -174,14 +174,7 @@ button{cursor:pointer}
 </nav>
 
 <script>
-const data=[
- {name:"Túi acc Liên Quân VIP",game:"Liên Quân",price:39000,old:100000,color:""},
- {name:"Acc Liên Quân Đại Chiến",game:"Liên Quân",price:149000,old:200000,color:""},
- {name:"Acc Free Fire VIP",game:"Free Fire",price:200000,old:400000,color:"pink"},
- {name:"Acc Roblox cao cấp",game:"Roblox",price:299000,old:400000,color:"gold"},
- {name:"Acc Liên Quân cực hạn",game:"Liên Quân",price:799000,old:1200000,color:""},
- {name:"Acc Free Fire nhiều skin",game:"Free Fire",price:350000,old:500000,color:"pink"}
-];
+let data=[];
 let selected="Tất cả";
 let profiles=[];
 let myProfile=null;
@@ -313,7 +306,31 @@ window.sb = window.supabase.createClient(
 );
 
 console.log("PDM-GAMING da ket noi Supabase");
-</script>
+async function loadProducts(){
+  const {data: products, error} = await window.sb
+    .from("products")
+    .select("*")
+    .order("created_at", {ascending:false});
+
+  if(error){
+    console.error("Lỗi tải sản phẩm:",error);
+    return;
+  }
+
+  data = products.map(p => ({
+    name: p.title,
+    game: p.game,
+    price: Number(p.price) || 0,
+    old: 0,
+    color: "pink",
+    description: p.description,
+    image: p.image
+  }));
+
+  renderProducts();
+}
+
+loadProducts();</script>
 
 </body>
 </html>
