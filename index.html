@@ -218,9 +218,39 @@ function showProduct(index){
       <h2 style="color:#ed286b">${money(p.price)}</h2>
       <p>Game: ${escapeHTML(p.game||'')}</p>
       <p>${escapeHTML(p.description||'Chưa có mô tả')}</p>
+    <button onclick="startPayment(${index})" style="width:100%;padding:15px;background:#ed286b;color:white;border:0;border-radius:10px;font-weight:bold;margin-top:15px">🛒 MUA NGAY</button>
     </div>
   `;
 
+  document.body.appendChild(box);
+}
+ function startPayment(index){
+  const p=data[index];
+  if(!p)return;
+
+  const amount=Math.round(Number(p.price));
+  const note="PDM"+Date.now().toString().slice(-8);
+  const qr="https://img.vietqr.io/image/"+BANK_ID+"-"+BANK_ACCOUNT+"-compact2.png?amount="+amount+"&addInfo="+encodeURIComponent(note)+"&accountName="+encodeURIComponent(BANK_NAME);
+
+  const old=document.getElementById("paymentBox");
+  if(old)old.remove();
+
+  const box=document.createElement("div");
+  box.id="paymentBox";
+  box.style.cssText="position:fixed;inset:0;background:#0009;z-index:99999;display:grid;place-items:center;padding:15px";
+  box.innerHTML=`
+    <div style="background:white;color:#222;padding:20px;border-radius:15px;width:100%;max-width:380px;text-align:center">
+      <h2>Thanh toán PDM GAMING</h2>
+      <p>Sản phẩm: ${escapeHTML(p.name)}</p>
+      <h2 style="color:#ed286b">${money(amount)}</h2>
+      <img src="${qr}" style="width:230px;max-width:100%">
+      <p>Ngân hàng: MB Bank</p>
+      <p>Chủ tài khoản: ${escapeHTML(BANK_NAME)}</p>
+      <p>Số tài khoản: ${escapeHTML(BANK_ACCOUNT)}</p>
+      <p>Nội dung: <b>${note}</b></p>
+      <p>Vui lòng chuyển đúng số tiền và nội dung.</p>
+      <button onclick="document.getElementById('paymentBox').remove()">Đóng</button>
+    </div>`;
   document.body.appendChild(box);
 }
  function chooseGame(g,el){
