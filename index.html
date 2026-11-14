@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -7,256 +6,299 @@
 <title>PDM GAMING</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#f7f7fa;color:#20212a;
- font-family:Arial,sans-serif;padding-bottom:85px
-}
-header{
- background:#fff;padding:15px;
- display:flex;align-items:center;
- justify-content:space-between;
- position:sticky;top:0;z-index:10;
- box-shadow:0 3px 15px #0000000b
-}
-.logo{font-size:23px;font-weight:900;color:#e52d62}
-.logo span{color:#303344}
-.wallet{
- border:0;border-radius:12px;padding:12px 17px;
- color:white;font-weight:bold;
- background:linear-gradient(120deg,#ed48a0,#ed344c)
-}
-.banner{
- margin:16px;padding:25px 20px;
- border-radius:18px;color:white;
- background:linear-gradient(120deg,#29165c,#e33373);
- box-shadow:0 8px 20px #a92c6b33
-}
-.banner h1{font-size:25px;margin:0 0 10px}
-.banner p{font-size:13px;color:#f9e6f1}
-.banner button{
- background:white;color:#d92f67;
- border:0;padding:11px 18px;
- border-radius:9px;font-weight:bold
-}
-.search{padding:0 16px;display:flex;gap:8px}
-.search input{
- flex:1;min-width:0;border:1px solid #e4e4eb;
- background:white;padding:14px;border-radius:12px;
- outline:none;font-size:14px
-}
-.search button{
- border:0;border-radius:12px;
- background:#ed3869;color:white;padding:0 16px
-}
-.categories{
- display:flex;gap:10px;overflow-x:auto;
- padding:18px 16px 5px
-}
-.category{
- flex-shrink:0;background:white;
- border:1px solid #eee;border-radius:12px;
- padding:12px 17px;font-size:13px;font-weight:bold;
- cursor:pointer
-}
-.category.active{
- background:#fff0f5;color:#e52d62;
- border-color:#ef9bb7
-}
-.section{padding:15px 16px}
-.heading{
- display:flex;justify-content:space-between;
- align-items:center;margin-bottom:15px
-}
-.heading h2{font-size:19px;margin:0}
-.heading a{color:#e52d62;font-size:13px}
-.products{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:17px 12px
-}
-.product{
- background:white;border-radius:14px;
- overflow:hidden;box-shadow:0 4px 15px #17172a0a;
- border:1px solid #eee
-}
-.thumb{
- height:125px;position:relative;
- display:flex;align-items:center;justify-content:center;
- background:linear-gradient(135deg,#1269b8,#59c7f3);
- color:white;text-align:center;padding:10px
-}
+body{margin:0;background:#f6f5fa;color:#242333;font-family:Arial,sans-serif;padding-bottom:85px}
+header{background:white;padding:17px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px #0001}
+.logo{font-size:23px;font-weight:900;color:#e52d70}
+.logo span{color:#282b40}
+button{cursor:pointer}
+.btn{border:0;border-radius:10px;padding:12px 16px;background:#eb3470;color:white;font-weight:bold}
+.banner{margin:15px;padding:25px 20px;border-radius:18px;color:white;background:linear-gradient(120deg,#29165c,#e33373)}
+.banner h1{margin:0 0 10px}
+.banner p{font-size:14px}
+.panel{display:none;padding:16px}
+.panel.active{display:block}
+.search input,.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;background:white;font-size:15px;margin:6px 0 12px}
+.categories{display:flex;gap:8px;overflow:auto;padding:15px 0}
+.category{flex-shrink:0;border:1px solid #ddd;border-radius:12px;padding:12px;background:white;font-weight:bold}
+.category.active{background:#fff0f5;color:#e52d70;border-color:#e52d70}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product{background:white;border-radius:13px;overflow:hidden;border:1px solid #eee}
+.thumb{height:120px;display:grid;place-items:center;text-align:center;color:white;font-weight:bold;font-size:19px;background:linear-gradient(135deg,#1269b8,#9c6aff)}
 .thumb.pink{background:linear-gradient(135deg,#9d287c,#ff80b2)}
 .thumb.gold{background:linear-gradient(135deg,#72500c,#e5ba51)}
-.thumb.purple{background:linear-gradient(135deg,#382078,#a47aff)}
-.thumb strong{font-size:19px;text-shadow:0 2px 5px #0008}
-.sold{
- position:absolute;bottom:6px;left:5px;right:5px;
- background:#245bd9;color:white;
- padding:6px 3px;border-radius:6px;
- font-size:10px
-}
-.heart{
- position:absolute;right:8px;top:8px;
- background:#ffffffdf;color:#e52d62;
- border:0;border-radius:50%;width:28px;height:28px
-}
-.info{padding:10px}
-.name{font-size:13px;font-weight:bold;min-height:34px}
-.game{font-size:11px;color:#888;margin:5px 0}
-.price{
- color:#df3347;font-size:15px;font-weight:900;
- margin:9px 0
-}
-.old{color:#aaa;text-decoration:line-through;
- font-size:11px;margin-left:4px}
-.buy{
- width:100%;border:0;border-radius:8px;
- padding:10px;background:#ed3869;
- color:white;font-weight:bold
-}
-.seller{
- margin:15px;padding:20px;border-radius:15px;
- background:#222c43;color:white
-}
-.seller h3{margin-top:0}
-.seller button{
- border:0;border-radius:8px;
- padding:12px 16px;background:#f3b949;
- font-weight:bold
-}
-.support{
- position:fixed;right:15px;bottom:100px;
- background:#19a84b;color:white;
- width:58px;height:58px;border-radius:50%;
- border:0;font-size:12px;font-weight:bold;
- box-shadow:0 5px 15px #0003;z-index:15
-}
-.bottom{
- position:fixed;bottom:0;left:0;right:0;
- background:white;display:grid;
- grid-template-columns:repeat(4,1fr);
- padding:10px 3px 7px;
- border-top:1px solid #eee;z-index:20
-}
-.bottom button{
- background:none;border:0;color:#686873;
- font-size:11px;font-weight:bold;padding:5px 0
-}
-.bottom button.active{color:#e52d62}
-.bottom .symbol{font-size:21px;display:block;margin-bottom:4px}
-@media(min-width:700px){
- body{max-width:900px;margin:auto}
- .products{grid-template-columns:repeat(3,1fr)}
- .thumb{height:180px}
-}
+.info{padding:11px}
+.price{color:#e33355;font-weight:900;margin:9px 0}
+.old{color:#aaa;text-decoration:line-through;font-size:12px}
+.buy{width:100%;border:0;border-radius:8px;background:#e93670;color:white;padding:10px;font-weight:bold;margin-top:8px}
+.card{background:white;padding:15px;border-radius:14px;margin-bottom:13px;border:1px solid #eee}
+.card h3{margin:0 0 12px}
+.muted{color:#888;font-size:13px}
+.field label{font-size:13px;font-weight:bold}
+.chatbox{height:310px;overflow:auto;background:#f8f7fb;border-radius:12px;padding:12px;margin-bottom:10px}
+.message{background:white;border-radius:12px;padding:10px;margin-bottom:9px;max-width:90%;overflow-wrap:anywhere}
+.message.mine{margin-left:auto;background:#ffe6ef}
+.chatinput{display:flex;gap:7px}
+.chatinput input{flex:1;min-width:0;padding:12px;border:1px solid #ddd;border-radius:10px}
+.player{display:flex;gap:12px;align-items:center}
+.avatar{width:48px;height:48px;border-radius:50%;background:#eee;display:grid;place-items:center;font-size:24px}
+.playerinfo{flex:1;min-width:0}
+.tag{display:inline-block;background:#fce7ef;color:#d52e68;border-radius:20px;padding:5px 9px;font-size:11px;margin:3px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:white;display:grid;grid-template-columns:repeat(4,1fr);padding:9px 2px;border-top:1px solid #eee;z-index:20}
+.bottom button{border:0;background:none;color:#777;font-size:11px;font-weight:bold}
+.bottom button.active{color:#e52d70}
+.bottom span{display:block;font-size:21px;margin-bottom:4px}
+.notice{font-size:12px;color:#777;line-height:1.5}
 </style>
 </head>
 <body>
 
 <header>
  <div class="logo">PDM <span>GAMING</span></div>
- <button class="wallet" onclick="alert('Khu vực nạp tiền sẽ được kết nối ở bước tiếp theo')">
-  ◉ Nạp tiền
- </button>
+ <button class="btn" onclick="openTab('profile')">Tài khoản</button>
 </header>
 
 <div class="banner">
  <h1>🎮 PDM GAMING</h1>
- <p>Thiên đường tài khoản game – Giao dịch tiện lợi</p>
- <button onclick="document.getElementById('accounts').scrollIntoView()">
-  Khám phá ngay →
- </button>
+ <p>Shop acc game - Kết nối đồng đội - Giao lưu game thủ</p>
+ <button class="btn" style="background:white;color:#df326b" onclick="openTab('shop')">Khám phá ngay →</button>
 </div>
 
-<div class="search">
- <input id="search" placeholder="Tìm acc game bạn yêu thích...">
- <button onclick="searchAcc()">⌕</button>
-</div>
-
-<div class="categories">
- <div class="category active" onclick="filter('Tất cả',this)">Tất cả</div>
- <div class="category" onclick="filter('Liên Quân',this)">⚔️ Liên Quân</div>
- <div class="category" onclick="filter('Free Fire',this)">🔥 Free Fire</div>
- <div class="category" onclick="filter('Roblox',this)">🎲 Roblox</div>
-</div>
-
-<section class="section" id="accounts">
- <div class="heading">
-  <h2>🔥 Acc nổi bật</h2>
-  <a href="#accounts">Xem tất cả →</a>
+<!-- SHOP -->
+<section id="shop" class="panel active">
+ <h2>🛒 Shop tài khoản game</h2>
+ <div class="search">
+  <input id="search" placeholder="Tìm acc game..." oninput="renderProducts()">
  </div>
+ <div class="categories">
+  <button class="category active" onclick="chooseGame('Tất cả',this)">Tất cả</button>
+  <button class="category" onclick="chooseGame('Liên Quân',this)">⚔️ Liên Quân</button>
+  <button class="category" onclick="chooseGame('Free Fire',this)">🔥 Free Fire</button>
+  <button class="category" onclick="chooseGame('Roblox',this)">🎲 Roblox</button>
+ </div>
+ <h3>🔥 Acc nổi bật</h3>
  <div class="products" id="products"></div>
+ <div class="card" style="margin-top:18px">
+  <h3>🏪 Trở thành người bán</h3>
+  <p>Đăng ký để giới thiệu tài khoản game của bạn.</p>
+  <button class="btn" onclick="alert('Chức năng đăng ký người bán sẽ được phát triển ở phiên bản tiếp theo.')">Đăng ký bán acc</button>
+ </div>
 </section>
 
-<div class="seller">
- <h3>🏪 Trở thành đối tác PDM</h3>
- <p>Bạn có acc game muốn bán? Đăng ký gian hàng và kinh doanh cùng chúng tôi.</p>
- <button onclick="alert('Đăng ký người bán sẽ được xây dựng ở bước tiếp theo')">
-  Đăng ký bán acc →
- </button>
-</div>
+<!-- CHAT -->
+<section id="chat" class="panel">
+ <h2>🌍 Chat thế giới</h2>
+ <p class="muted">Giao lưu và trò chuyện cùng cộng đồng PDM GAMING.</p>
+ <div class="chatbox" id="chatbox">
+  <div class="message"><b>🤖 PDM BOT</b><br>Chào mừng bạn đến với cộng đồng PDM GAMING!</div>
+ </div>
+ <div class="chatinput">
+  <input id="chattext" placeholder="Nhập tin nhắn..." maxlength="500">
+  <button class="btn" onclick="sendMessage()">Gửi</button>
+ </div>
+ <p class="notice">Bản hiện tại lưu tin nhắn trên thiết bị của bạn. Muốn chat trực tiếp với người khác qua Internet cần kết nối máy chủ và tài khoản đăng nhập.</p>
+</section>
 
-<button class="support" onclick="alert('Khu vực hỗ trợ khách hàng')">
- Hỗ trợ
-</button>
+<!-- FIND PLAYER -->
+<section id="find" class="panel">
+ <h2>🎮 Tìm đồng đội</h2>
+ <p class="muted">Tìm người chơi chung, lập team và kết bạn.</p>
+ <div class="card">
+  <div class="field">
+   <label>Chọn game</label>
+   <select id="findgame">
+    <option>Liên Quân</option>
+    <option>Free Fire</option>
+    <option>Roblox</option>
+   </select>
+   <label>Rank hiện tại</label>
+   <input id="rank" placeholder="Ví dụ: Cao thủ, Kim cương...">
+   <label>Muốn tìm người chơi ở đâu?</label>
+   <input id="findcity" placeholder="Ví dụ: TP.HCM">
+   <button class="btn" onclick="findPlayers()">Tìm đồng đội</button>
+  </div>
+ </div>
+ <div id="players">
+  <h3>👥 Game thủ mới</h3>
+ </div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="panel">
+ <h2>👤 Hồ sơ game thủ</h2>
+ <div class="card">
+  <div class="field">
+   <label>Tên hiển thị</label>
+   <input id="pname" placeholder="Tên game thủ">
+   <label>Giới tính</label>
+   <select id="gender">
+    <option value="">Chọn giới tính</option>
+    <option>Nam</option>
+    <option>Nữ</option>
+    <option>Khác</option>
+    <option>Không muốn tiết lộ</option>
+   </select>
+   <label>Năm sinh</label>
+   <input id="birth" type="number" placeholder="Ví dụ: 2005">
+   <label>Tỉnh / Thành phố</label>
+   <input id="city" placeholder="Ví dụ: TP. Hồ Chí Minh">
+   <label>Game yêu thích</label>
+   <select id="game">
+    <option>Liên Quân</option>
+    <option>Free Fire</option>
+    <option>Roblox</option>
+   </select>
+   <label>Rank</label>
+   <input id="prank" placeholder="Rank hiện tại">
+   <label>ID game</label>
+   <input id="gameid" placeholder="Nhập ID game">
+   <label>Bạn có sử dụng mic không?</label>
+   <select id="mic">
+    <option>Có mic</option>
+    <option>Không có mic</option>
+    <option>Chỉ nghe, không nói</option>
+   </select>
+   <button class="btn" onclick="saveProfile()">Lưu hồ sơ</button>
+  </div>
+ </div>
+ <div id="profileview" class="card">
+  <p class="muted">Bạn chưa tạo hồ sơ game thủ.</p>
+ </div>
+ <p class="notice">Không nên công khai số điện thoại, địa chỉ nhà, mật khẩu hoặc thông tin riêng tư. Năm sinh và giới tính nên để tùy chọn hiển thị.</p>
+</section>
 
 <nav class="bottom">
- <button class="active" onclick="go('top')">
-  <span class="symbol">⌂</span>Trang chủ
- </button>
- <button onclick="alert('Danh sách acc đã mua')">
-  <span class="symbol">🎮</span>Acc đã mua
- </button>
- <button onclick="alert('Khu vực nạp tiền')">
-  <span class="symbol">▣</span>Nạp tiền
- </button>
- <button onclick="alert('Tài khoản của bạn')">
-  <span class="symbol">♙</span>Tài khoản
- </button>
+ <button class="active" onclick="openTab('shop',this)"><span>🏠</span>Shop</button>
+ <button onclick="openTab('chat',this)"><span>🌍</span>Chat</button>
+ <button onclick="openTab('find',this)"><span>🎮</span>Đồng đội</button>
+ <button onclick="openTab('profile',this)"><span>👤</span>Hồ sơ</button>
 </nav>
 
 <script>
 const data=[
- {name:"Túi acc Liên Quân VIP",game:"Liên Quân",price:39000,old:100000,sold:"6.6K",views:"8.8K",color:""},
- {name:"Acc Liên Quân Đại Chiến",game:"Liên Quân",price:149000,old:200000,sold:"3.6K",views:"8.9K",color:"purple"},
- {name:"Acc Free Fire VIP",game:"Free Fire",price:200000,old:400000,sold:"4.4K",views:"8.9K",color:"pink"},
- {name:"Acc Roblox cao cấp",game:"Roblox",price:299000,old:400000,sold:"6.6K",views:"9.1K",color:"gold"},
- {name:"Acc Liên Quân cực hạn",game:"Liên Quân",price:799000,old:1200000,sold:"3.6K",views:"6.6K",color:""},
- {name:"Acc Free Fire nhiều skin",game:"Free Fire",price:350000,old:500000,sold:"2.1K",views:"5.2K",color:"pink"}
+ {name:"Túi acc Liên Quân VIP",game:"Liên Quân",price:39000,old:100000,color:""},
+ {name:"Acc Liên Quân Đại Chiến",game:"Liên Quân",price:149000,old:200000,color:""},
+ {name:"Acc Free Fire VIP",game:"Free Fire",price:200000,old:400000,color:"pink"},
+ {name:"Acc Roblox cao cấp",game:"Roblox",price:299000,old:400000,color:"gold"},
+ {name:"Acc Liên Quân cực hạn",game:"Liên Quân",price:799000,old:1200000,color:""},
+ {name:"Acc Free Fire nhiều skin",game:"Free Fire",price:350000,old:500000,color:"pink"}
 ];
+let selected="Tất cả";
+let profiles=[];
+let myProfile=null;
 
 const money=n=>n.toLocaleString("vi-VN")+" VNĐ";
 
-function show(items){
- document.getElementById("products").innerHTML=items.map((p,i)=>`
+function renderProducts(){
+ const q=document.getElementById("search").value.toLowerCase();
+ const list=data.filter(p=>(selected==="Tất cả"||p.game===selected)&&(p.name+p.game).toLowerCase().includes(q));
+ document.getElementById("products").innerHTML=list.map(p=>`
  <article class="product">
-  <div class="thumb ${p.color}">
-   <button class="heart" onclick="this.innerText=this.innerText==='♡'?'♥':'♡'">♡</button>
-   <strong>${p.game}<br>PDM GAMING</strong>
-   <div class="sold">Đã bán: ${p.sold}　|　Xem: ${p.views}</div>
-  </div>
+  <div class="thumb ${p.color}">${p.game}<br>PDM GAMING</div>
   <div class="info">
-   <div class="name">${p.name}</div>
-   <div class="game">${p.game}</div>
+   <b>${p.name}</b>
    <div class="price">${money(p.price)}</div>
    <div class="old">${money(p.old)}</div>
-   <button class="buy" onclick="alert('Sản phẩm demo. Chức năng mua sẽ được kết nối sau.')">Xem tài khoản →</button>
+   <button class="buy" onclick="alert('Đây là sản phẩm mẫu. Chưa có thanh toán thật.')">Xem tài khoản →</button>
   </div>
- </article>`).join("");
+ </article>`).join("")||"<p>Không tìm thấy tài khoản.</p>";
 }
-
-function filter(game,el){
+function chooseGame(g,el){
+ selected=g;
  document.querySelectorAll(".category").forEach(x=>x.classList.remove("active"));
  el.classList.add("active");
- show(game==="Tất cả"?data:data.filter(p=>p.game===game));
+ renderProducts();
 }
-function searchAcc(){
- let q=document.getElementById("search").value.toLowerCase();
- show(data.filter(p=>(p.name+p.game).toLowerCase().includes(q)));
+function openTab(id,btn){
+ document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".bottom button").forEach(x=>x.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ else document.querySelectorAll(".bottom button")[["shop","chat","find","profile"].indexOf(id)].classList.add("active");
+ window.scrollTo(0,0);
 }
-function go(id){
- window.scrollTo({top:0,behavior:"smooth"});
+function sendMessage(){
+ const input=document.getElementById("chattext");
+ const value=input.value.trim();
+ if(!value)return;
+ const box=document.getElementById("chatbox");
+ const msg=document.createElement("div");
+ msg.className="message mine";
+ const name=myProfile?.name||"Bạn";
+ const b=document.createElement("b");
+ b.textContent=name;
+ const content=document.createElement("div");
+ content.textContent=value;
+ msg.append(b,content);
+ box.appendChild(msg);
+ box.scrollTop=box.scrollHeight;
+ input.value="";
 }
-show(data);
+function saveProfile(){
+ const name=document.getElementById("pname").value.trim();
+ const birth=Number(document.getElementById("birth").value);
+ if(!name){alert("Vui lòng nhập tên hiển thị.");return;}
+ if(birth && (birth<1900||birth>new Date().getFullYear())){alert("Năm sinh không hợp lệ.");return;}
+ myProfile={
+  name,
+  gender:document.getElementById("gender").value,
+  birth:birth||"",
+  city:document.getElementById("city").value,
+  game:document.getElementById("game").value,
+  rank:document.getElementById("prank").value,
+  gameid:document.getElementById("gameid").value,
+  mic:document.getElementById("mic").value
+ };
+ localStorage.setItem("pdmProfile",JSON.stringify(myProfile));
+ document.getElementById("profileview").innerHTML=`
+ <h3>👤 ${escapeHTML(myProfile.name)}</h3>
+ <p>Giới tính: ${escapeHTML(myProfile.gender||"Chưa cung cấp")}</p>
+ <p>Năm sinh: ${myProfile.birth||"Chưa cung cấp"}</p>
+ <p>Địa điểm: ${escapeHTML(myProfile.city||"Chưa cung cấp")}</p>
+ <p>Game: ${escapeHTML(myProfile.game)}</p>
+ <p>Rank: ${escapeHTML(myProfile.rank||"Chưa cung cấp")}</p>
+ <p>ID game: ${escapeHTML(myProfile.gameid||"Chưa cung cấp")}</p>
+ <p>🎙️ ${escapeHTML(myProfile.mic)}</p>`;
+ alert("Đã lưu hồ sơ trên thiết bị này!");
+}
+function escapeHTML(s){
+ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function findPlayers(){
+ const game=document.getElementById("findgame").value;
+ const city=document.getElementById("findcity").value.trim().toLowerCase();
+ const rank=document.getElementById("rank").value.trim().toLowerCase();
+ const list=profiles.filter(p=>p.game===game&&(!city||p.city.toLowerCase().includes(city))&&(!rank||p.rank.toLowerCase().includes(rank)));
+ const box=document.getElementById("players");
+ if(!list.length){
+  box.innerHTML="<h3>👥 Kết quả</h3><p>Chưa có game thủ phù hợp. Hãy tạo hồ sơ và thử lại sau.</p>";
+  return;
+ }
+ box.innerHTML="<h3>👥 Kết quả tìm kiếm</h3>"+list.map(p=>`
+ <div class="card player">
+  <div class="avatar">🎮</div>
+  <div class="playerinfo">
+   <b>${escapeHTML(p.name)}</b><br>
+   <span class="muted">${escapeHTML(p.game)} • ${escapeHTML(p.city)}</span><br>
+   <span class="tag">${escapeHTML(p.rank||"Chưa có rank")}</span>
+   <span class="tag">${escapeHTML(p.mic)}</span>
+  </div>
+ </div>`).join("");
+}
+const saved=localStorage.getItem("pdmProfile");
+if(saved){
+ try{
+  myProfile=JSON.parse(saved);
+  document.getElementById("pname").value=myProfile.name||"";
+  document.getElementById("gender").value=myProfile.gender||"";
+  document.getElementById("birth").value=myProfile.birth||"";
+  document.getElementById("city").value=myProfile.city||"";
+  document.getElementById("game").value=myProfile.game||"Liên Quân";
+  document.getElementById("prank").value=myProfile.rank||"";
+  document.getElementById("gameid").value=myProfile.gameid||"";
+  document.getElementById("mic").value=myProfile.mic||"Có mic";
+ }catch(e){}
+}
+renderProducts();
 </script>
 </body>
 </html>
