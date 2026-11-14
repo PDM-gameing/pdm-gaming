@@ -224,12 +224,27 @@ function showProduct(index){
 
   document.body.appendChild(box);
 }
- function startPayment(index){
+ async function startPayment(index){
   const p=data[index];
   if(!p)return;
+const amount=Math.round(Number(p.price));
+const note="PDM"+Date.now().toString().slice(-8);
 
-  const amount=Math.round(Number(p.price));
-  const note="PDM"+Date.now().toString().slice(-8);
+const {error}=await sb
+  .from("orders")
+  .insert({
+    product_name:p.name,
+    game:p.game || "",
+    amount:amount,
+    transfer_note:note,
+    status:"pending"
+  });
+
+if(error){
+  alert("Không tạo được đơn hàng: "+error.message);
+  return;
+}
+
   const qr="https://img.vietqr.io/image/"+BANK_ID+"-"+BANK_ACCOUNT+"-compact2.png?amount="+amount+"&addInfo="+encodeURIComponent(note)+"&accountName="+encodeURIComponent(BANK_NAME);
 
   const old=document.getElementById("paymentBox");
