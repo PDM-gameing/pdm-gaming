@@ -198,6 +198,30 @@ let myProfile=null;
   alert("Đăng nhập thành công!");
   openTab("profile");
 }
+ async function registerAuth(){
+  const email = prompt("Nhập email đăng ký:");
+  if(!email) return;
+
+  const password = prompt("Tạo mật khẩu (ít nhất 6 ký tự):");
+  if(!password) return;
+
+  if(password.length < 6){
+    alert("Mật khẩu phải có ít nhất 6 ký tự!");
+    return;
+  }
+
+  const {data,error} = await sb.auth.signUp({
+    email: email.trim(),
+    password: password
+  });
+
+  if(error){
+    alert("Đăng ký thất bại: " + error.message);
+    return;
+  }
+
+  alert("Đăng ký thành công! Hãy kiểm tra email để xác nhận nếu được yêu cầu.");
+}
  // CẤU HÌNH THANH TOÁN PDM GAMING
 const BANK_ID = "MB";
 const BANK_ACCOUNT = "08123456777777";
