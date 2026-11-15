@@ -199,30 +199,134 @@ let myProfile=null;
   alert("Đăng nhập thành công!");
   openTab("profile");
 }
- async function registerAuth(){
-  const email = prompt("Nhập email đăng ký:");
-  if(!email) return;
+ 
+function openAuth(){
+  showAuth("login");
+}
 
-  const password = prompt("Tạo mật khẩu (ít nhất 6 ký tự):");
-  if(!password) return;
+function registerAuth(){
+  showAuth("register");
+}
 
-  if(password.length < 6){
+function showAuth(mode){
+  const old=document.getElementById("authModal");
+  if(old) old.remove();
+
+  const box=document.createElement("div");
+  box.id="authModal";
+
+  box.style.cssText=
+    "position:fixed;inset:0;background:#000b;"+
+    "z-index:99999;display:flex;align-items:center;"+
+    "justify-content:center;padding:20px;";
+
+  box.innerHTML=`
+    <div style="
+      background:#171525;color:white;width:100%;
+      max-width:390px;padding:25px;border-radius:22px;
+      box-shadow:0 15px 50px #0008;
+      border:1px solid #713c91;
+    ">
+      <div style="display:flex;justify-content:space-between;
+        align-items:center;margin-bottom:20px">
+        <h2 style="margin:0;color:#f04b91">PDM GAMING</h2>
+        <button onclick="closeAuth()" style="
+          background:none;border:0;color:white;font-size:26px">
+          ×
+        </button>
+      </div>
+
+      <h2 style="text-align:center">
+        ${mode==="login"?"Chào mừng trở lại!":"Tạo tài khoản mới"}
+      </h2>
+      <p style="text-align:center;color:#aaa">
+        ${mode==="login"?"Đăng nhập để tiếp tục":"Tham gia cộng đồng PDM GAMING"}
+      </p>
+
+      <label>Email</label>
+      <input id="authEmail" type="email"
+        placeholder="Nhập email của bạn"
+        autocomplete="email"
+        style="width:100%;padding:15px;margin:8px 0 16px;
+        border-radius:12px;border:1px solid #555;
+        background:#292638;color:white;box-sizing:border-box">
+
+      <label>Mật khẩu</label>
+      <input id="authPassword" type="password"
+        placeholder="Nhập mật khẩu"
+        autocomplete="${mode==="login"?"current-password":"new-password"}"
+        style="width:100%;padding:15px;margin:8px 0 20px;
+        border-radius:12px;border:1px solid #555;
+        background:#292638;color:white;box-sizing:border-box">
+
+      <button onclick="submitAuth('${mode}')" style="
+        width:100%;padding:15px;border:0;border-radius:12px;
+        color:white;font-weight:bold;font-size:16px;
+        background:linear-gradient(100deg,#6826a5,#e83e83)">
+        ${mode==="login"?"ĐĂNG NHẬP":"ĐĂNG KÝ"}
+      </button>
+
+      <p style="text-align:center;color:#bbb;margin-top:20px">
+        ${mode==="login"?"Chưa có tài khoản?":"Đã có tài khoản?"}
+        <button onclick="showAuth('${mode==="login"?"register":"login"}')"
+          style="border:0;background:none;color:#ff65a4;font-weight:bold">
+          ${mode==="login"?"Đăng ký ngay":"Đăng nhập"}
+        </button>
+      </p>
+    </div>
+  `;
+
+  document.body.appendChild(box);
+}
+
+function closeAuth(){
+  const box=document.getElementById("authModal");
+  if(box) box.remove();
+}
+
+async function submitAuth(mode){
+  const email=document.getElementById("authEmail").value.trim();
+  const password=document.getElementById("authPassword").value;
+
+  if(!email || !password){
+    alert("Vui lòng nhập email và mật khẩu!");
+    return;
+  }
+
+  if(mode==="register" && password.length<6){
     alert("Mật khẩu phải có ít nhất 6 ký tự!");
     return;
   }
 
-  const {data,error} = await sb.auth.signUp({
-    email: email.trim(),
-    password: password
-  });
+  let result;
 
-  if(error){
-    alert("Đăng ký thất bại: " + error.message);
+  if(mode==="login"){
+    result=await window.sb.auth.signInWithPassword({
+      email:email,
+      password:password
+    });
+  }else{
+    result=await window.sb.auth.signUp({
+      email:email,
+      password:password
+    });
+  }
+
+  if(result.error){
+    alert("Có lỗi: "+result.error.message);
     return;
   }
 
-  alert("Đăng ký thành công! Hãy kiểm tra email để xác nhận nếu được yêu cầu.");
+  if(mode==="login"){
+    alert("Đăng nhập thành công!");
+    closeAuth();
+    openTab("profile");
+  }else{
+    alert("Đăng ký thành công! Hãy kiểm tra email để xác nhận nếu được yêu cầu.");
+    closeAuth();
+  }
 }
+
  // CẤU HÌNH THANH TOÁN PDM GAMING
 const BANK_ID = "MB";
 const BANK_ACCOUNT = "08123456777777";
