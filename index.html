@@ -531,7 +531,8 @@ if (avatarFile) {
     favorite_game: game,
     has_mic: mic === "Có mic",
     rank: rank,
-    game_id: gameid
+    game_id: gameid,
+avatar_url: avatarUrl || myProfile?.avatar_url || null
   }, { onConflict: "auth_user_id" });
 
   if(error){
