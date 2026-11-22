@@ -519,8 +519,9 @@ if (avatarFile) {
     game,
     rank,
     gameid,
-    mic
-  };
+    mic,
+avatar_url: avatarUrl || myProfile?.avatar_url || null
+};
 
   const { error } = await sb.from("profiles").upsert({
     auth_user_id: user.id,
@@ -544,7 +545,10 @@ avatar_url: avatarUrl || myProfile?.avatar_url || null
   localStorage.setItem("pdmProfile", JSON.stringify(profile));
 
   document.getElementById("profileview").innerHTML = `
-    <h3>👤 ${escapeHTML(name)}</h3>
+    ${profile.avatar_url
+  ? `<img src="${escapeHTML(profile.avatar_url)}" alt="Ảnh đại diện" style="width:90px;height:90px;border-radius:50%;object-fit:cover">`
+  : `<div style="font-size:50px">👤</div>`}
+<h3>${escapeHTML(name)}</h3>
     <p>Giới tính: ${escapeHTML(gender || "Chưa cung cấp")}</p>
     <p>Năm sinh: ${birth || "Chưa cung cấp"}</p>
     <p>Địa điểm: ${escapeHTML(city || "Chưa cung cấp")}</p>
