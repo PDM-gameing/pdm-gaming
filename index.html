@@ -448,33 +448,80 @@ function sendMessage(){
  box.scrollTop=box.scrollHeight;
  input.value="";
 }
-function saveProfile(){
- const name=document.getElementById("pname").value.trim();
- const birth=Number(document.getElementById("birth").value);
- if(!name){alert("Vui lòng nhập tên hiển thị.");return;}
- if(birth && (birth<1900||birth>new Date().getFullYear())){alert("Năm sinh không hợp lệ.");return;}
- myProfile={
-  name,
-  gender:document.getElementById("gender").value,
-  birth:birth||"",
-  city:document.getElementById("city").value,
-  game:document.getElementById("game").value,
-  rank:document.getElementById("prank").value,
-  gameid:document.getElementById("gameid").value,
-  mic:document.getElementById("mic").value
- };
- localStorage.setItem("pdmProfile",JSON.stringify(myProfile));
- document.getElementById("profileview").innerHTML=`
- <h3>👤 ${escapeHTML(myProfile.name)}</h3>
- <p>Giới tính: ${escapeHTML(myProfile.gender||"Chưa cung cấp")}</p>
- <p>Năm sinh: ${myProfile.birth||"Chưa cung cấp"}</p>
- <p>Địa điểm: ${escapeHTML(myProfile.city||"Chưa cung cấp")}</p>
- <p>Game: ${escapeHTML(myProfile.game)}</p>
- <p>Rank: ${escapeHTML(myProfile.rank||"Chưa cung cấp")}</p>
- <p>ID game: ${escapeHTML(myProfile.gameid||"Chưa cung cấp")}</p>
- <p>🎙️ ${escapeHTML(myProfile.mic)}</p>`;
- alert("Đã lưu hồ sơ trên thiết bị này!");
+
+async function saveProfile(){
+  const { data: { user }, error: userError } = await sb.auth.getUser();
+
+  if(userError || !user){
+    alert("Bạn cần đăng nhập trước khi lưu hồ sơ.");
+    return;
+  }
+
+  const name = document.getElementById("pname").value.trim();
+  const birth = Number(document.getElementById("birth").value);
+
+  if(!name){
+    alert("Vui lòng nhập tên hiển thị.");
+    return;
+  }
+
+  if(birth && (birth < 1900 || birth > new Date().getFullYear())){
+    alert("Năm sinh không hợp lệ.");
+    return;
+  }
+
+  const gender = document.getElementById("gender").value;
+  const city = document.getElementById("city").value;
+  const game = document.getElementById("game").value;
+  const rank = document.getElementById("prank").value;
+  const gameid = document.getElementById("gameid").value;
+  const mic = document.getElementById("mic").value;
+
+  const profile = {
+    name,
+    gender,
+    birth: birth || "",
+    city,
+    game,
+    rank,
+    gameid,
+    mic
+  };
+
+  const { error } = await sb.from("profiles").upsert({
+    auth_user_id: user.id,
+    username: name,
+    gender: gender,
+    birth_year: birth || null,
+    location: city,
+    favorite_game: game,
+    has_mic: mic === "Có mic",
+    rank: rank,
+    game_id: gameid
+  }, { onConflict: "auth_user_id" });
+
+  if(error){
+    alert("Không lưu được hồ sơ: " + error.message);
+    return;
+  }
+
+  myProfile = profile;
+  localStorage.setItem("pdmProfile", JSON.stringify(profile));
+
+  document.getElementById("profileview").innerHTML = `
+    <h3>👤 ${escapeHTML(name)}</h3>
+    <p>Giới tính: ${escapeHTML(gender || "Chưa cung cấp")}</p>
+    <p>Năm sinh: ${birth || "Chưa cung cấp"}</p>
+    <p>Địa điểm: ${escapeHTML(city || "Chưa cung cấp")}</p>
+    <p>Game: ${escapeHTML(game)}</p>
+    <p>Rank: ${escapeHTML(rank || "Chưa cung cấp")}</p>
+    <p>ID game: ${escapeHTML(gameid || "Chưa cung cấp")}</p>
+    <p>🎙️ ${escapeHTML(mic)}</p>
+  `;
+
+  alert("Đã lưu hồ sơ vào tài khoản PDM GAMING!");
 }
+
 function escapeHTML(s){
  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
