@@ -158,6 +158,8 @@ button{cursor:pointer}
     <option>Không có mic</option>
     <option>Chỉ nghe, không nói</option>
    </select>
+<label>Ảnh đại diện</label>
+<input id="avatarFile" type="file" accept="image/*">
    <button class="btn" onclick="saveProfile()">Lưu hồ sơ</button>
   </div>
  </div>
@@ -470,7 +472,39 @@ async function saveProfile(){
     return;
   }
 
-  const gender = document.getElementById("gender").value;
+  const avatarFile = document.getElementById("avatarFile").files[0];
+let avatarUrl = null;
+
+if (avatarFile) {
+  if (!avatarFile.type.startsWith("image/")) {
+    alert("Vui lòng chọn file ảnh!");
+    return;
+  }
+
+  if (avatarFile.size > 3 * 1024 * 1024) {
+    alert("Ảnh không được lớn hơn 3MB!");
+    return;
+  }
+
+  const ext = avatarFile.name.split(".").pop();
+  const filePath = `avatars/${user.id}/${Date.now()}.${ext}`;
+
+  const { error: uploadError } = await sb.storage
+    .from("product-images")
+    .upload(filePath, avatarFile, { upsert: true });
+
+  if (uploadError) {
+    alert("Tải ảnh thất bại: " + uploadError.message);
+    return;
+  }
+
+  const { data: publicData } = sb.storage
+    .from("product-images")
+    .getPublicUrl(filePath);
+
+  avatarUrl = publicData.publicUrl;
+}
+ const gender = document.getElementById("gender").value;
   const city = document.getElementById("city").value;
   const game = document.getElementById("game").value;
   const rank = document.getElementById("prank").value;
