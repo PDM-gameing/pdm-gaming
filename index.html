@@ -600,6 +600,21 @@ if(saved){
  }catch(e){}
 }
 renderProducts();
+ async function updateAuthButtons(){
+  const { data: { session } } = await window.sb.auth.getSession();
+
+  document.getElementById("loginBtn").style.display =
+    session ? "none" : "";
+
+  document.getElementById("registerBtn").style.display =
+    session ? "none" : "";
+}
+
+window.sb.auth.onAuthStateChange(() => {
+  updateAuthButtons();
+});
+
+updateAuthButtons();
 </script>
 
 <!-- KET NOI SUPABASE -->
