@@ -600,6 +600,19 @@ if(saved){
  }catch(e){}
 }
 renderProducts();
+
+</script>
+
+<!-- KET NOI SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://egkvdhjgoadkelldhwpa.supabase.co";
+const SUPABASE_KEY = "sb_publishable_V_E2ZswsVGezddvfUtfA0g_Ub0WSb1p";
+
+window.sb = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
  async function updateAuthButtons(){
   const { data: { session } } = await window.sb.auth.getSession();
 
@@ -615,18 +628,6 @@ window.sb.auth.onAuthStateChange(() => {
 });
 
 updateAuthButtons();
-</script>
-
-<!-- KET NOI SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SUPABASE_URL = "https://egkvdhjgoadkelldhwpa.supabase.co";
-const SUPABASE_KEY = "sb_publishable_V_E2ZswsVGezddvfUtfA0g_Ub0WSb1p";
-
-window.sb = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
 
 console.log("PDM-GAMING da ket noi Supabase");
 async function loadProducts(){
