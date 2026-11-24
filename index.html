@@ -697,7 +697,82 @@ async function loadProducts(){
   renderProducts();
 }
 
-loadProducts();</script>
+async function adminOrders(){
+  const {data:{session}} = await window.sb.auth.getSession();
+
+  if(!session){
+    alert("Vui lòng đăng nhập!");
+    return;
+  }
+
+  const {data:isAdmin,error:adminError} =
+    await window.sb.rpc("is_admin");
+
+  if(adminError || !isAdmin){
+    alert("Bạn không có quyền quản trị!");
+    return;
+  }
+
+  const {data:orders,error} = await window.sb
+    .from("orders")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    alert("Lỗi tải đơn hàng: "+error.message);
+    return;
+  }
+
+  const old = document.getElementById("adminOrdersBox");
+  if(old) old.remove();
+
+  const box = document.createElement("div");
+  box.id = "adminOrdersBox";
+  box.style.cssText =
+    "position:fixed;inset:0;z-index:99999;background:#111;color:white;padding:20px;overflow:auto";
+
+  box.innerHTML = `
+    <h2>QUẢN TRỊ ĐƠN HÀNG</h2>
+    <button onclick="document.getElementById('adminOrdersBox').remove()">Đóng</button>
+    <h3>Tổng đơn: ${orders.length}</h3>
+    ${orders.map(o=>`
+      <div style="background:#252525;padding:15px;margin:12px 0;border-radius:10px">
+        <b>${escapeHTML(o.product_name||"Sản phẩm")}</b>
+        <p>Game: ${escapeHTML(o.game||"")}</p>
+        <p>Khách hàng: ${escapeHTML(o.buyer_name||"")}</p>
+        <p>Số tiền: ${money(o.amount)}</p>
+        <p>Mã chuyển khoản: ${escapeHTML(o.transfer_note||"")}</p>
+        <p>Trạng thái: ${escapeHTML(o.status||"")}</p>
+        <button onclick="updateOrderStatus('${o.id}','paid')">
+          Xác nhận đã nhận tiền
+        </button>
+        <button onclick="updateOrderStatus('${o.id}','completed')">
+          Xác nhận đã giao
+        </button>
+      </div>
+    `).join("")}
+  `;
+
+  document.body.appendChild(box);
+}
+
+async function updateOrderStatus(id,status){
+  const {error} = await window.sb
+    .from("orders")
+    .update({status:status})
+    .eq("id",id);
+
+  if(error){
+    alert("Cập nhật thất bại: "+error.message);
+    return;
+  }
+
+  alert("Đã cập nhật đơn hàng!");
+  adminOrders();
+}
+
+loadProducts();
+</script>
 
 </body>
 </html>
