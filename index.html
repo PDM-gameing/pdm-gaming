@@ -435,6 +435,61 @@ if(error){
     </div>`;
   document.body.appendChild(box);
 }
+ async function submitPaymentProof(note){
+  const {data:{user}} = await sb.auth.getUser();
+
+  if(!user){
+    alert("Vui lòng đăng nhập trước!");
+    return;
+  }
+
+  const input = document.getElementById("paymentProofFile");
+  const file = input.files[0];
+
+  if(!file){
+    alert("Bạn chưa chọn ảnh chuyển khoản!");
+    return;
+  }
+
+  if(!file.type.startsWith("image/")){
+    alert("Vui lòng chọn file hình ảnh!");
+    return;
+  }
+
+  if(file.size > 5 * 1024 * 1024){
+    alert("Ảnh không được vượt quá 5MB!");
+    return;
+  }
+
+  const ext = file.name.split(".").pop().toLowerCase();
+  const path = user.id + "/" + note + "." + ext;
+
+  const {error:uploadError} = await sb.storage
+    .from("payment-proofs")
+    .upload(path, file, {upsert:true});
+
+  if(uploadError){
+    alert("Lỗi tải ảnh: " + uploadError.message);
+    return;
+  }
+
+  const {error:updateError} = await sb
+    .from("orders")
+    .update({
+      payment_proof_path:path,
+      proof_submitted_at:new Date().toISOString()
+    })
+    .eq("transfer_note", note)
+    .eq("buyer_id", user.id)
+    .eq("status", "pending");
+
+  if(updateError){
+    alert("Lỗi lưu ảnh vào đơn hàng: " + updateError.message);
+    return;
+  }
+
+  alert("Đã gửi ảnh chuyển khoản. Vui lòng chờ quản trị viên xác nhận!");
+}
  function chooseGame(g,el){
  selected=g;
  document.querySelectorAll(".category").forEach(x=>x.classList.remove("active"));
