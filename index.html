@@ -51,7 +51,7 @@ button{cursor:pointer}
 </style>
 </head>
 <body>
-<button class="btn" id="accountBtn" style="display:none"></button>
+
 <header>
  <div class="logo">PDM <span>GAMING</span></div>
 <button class="btn" id="loginBtn" onclick="openAuth()">Đăng nhập</button>
@@ -614,15 +614,6 @@ window.sb = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
- async function updateAuthButtons(){
-  const { data: { session } } = await window.sb.auth.getSession();
-
-  document.getElementById("loginBtn").style.display =
-    session ? "none" : "";
-
-  document.getElementById("registerBtn").style.display =
-    session ? "none" : "";
-}
 
 window.sb.auth.onAuthStateChange(() => {
   updateAuthButtons();
