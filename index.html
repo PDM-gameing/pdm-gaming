@@ -631,8 +631,8 @@ async function updateAuthButtons(){
   accountBtn.style.display = session ? "" : "none";
 
   if(session){
-    accountBtn.textContent = session.user.email || "Tài khoản";
-    accountBtn.onclick = logoutAuth;
+    accountBtn.textContent = "👤 Tài khoản";
+accountBtn.onclick = toggleAccountMenu;
   }
 }
 
