@@ -382,14 +382,23 @@ function showProduct(index){
 const amount=Math.round(Number(p.price));
 const note="PDM"+Date.now().toString().slice(-8);
 
-const {error}=await sb
+const {data:{user}} = await sb.auth.getUser();
+
+if(!user){
+  alert("Vui lòng đăng nhập trước khi mua hàng!");
+  return;
+}
+
+const {error} = await sb
   .from("orders")
   .insert({
     product_name:p.name,
     game:p.game || "",
     amount:amount,
     transfer_note:note,
-    status:"pending"
+    status:"pending",
+    buyer_id:user.id,
+    buyer_name:user.email || "Khách hàng"
   });
 
 if(error){
