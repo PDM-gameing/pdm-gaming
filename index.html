@@ -805,6 +805,9 @@ async function adminOrders(){
   box.innerHTML = `
     <h2>QUẢN TRỊ ĐƠN HÀNG</h2>
     <button onclick="document.getElementById('adminOrdersBox').remove()">Đóng</button>
+   <button onclick="adminProducts()" style="padding:12px;margin:10px 0;width:100%">
+  🛒 Quản lý sản phẩm
+</button>
     <h3>Tổng đơn: ${orders.length}</h3>
     ${orders.map(o=>`
       <div style="background:#252525;padding:15px;margin:12px 0;border-radius:10px">
@@ -843,6 +846,7 @@ async function updateOrderStatus(id,status){
 }
 
 loadProducts();
+ 
 </script>
 
 </body>
