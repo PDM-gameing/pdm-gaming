@@ -847,6 +847,225 @@ async function updateOrderStatus(id,status){
 
 loadProducts();
  
+async function adminProducts(){
+  const {data:isAdmin,error:adminError}=await window.sb.rpc("is_admin");
+
+  if(adminError || !isAdmin){
+    alert("Bạn không có quyền quản trị!");
+    return;
+  }
+
+  const old=document.getElementById("adminProductsBox");
+  if(old) old.remove();
+
+  const box=document.createElement("div");
+  box.id="adminProductsBox";
+  box.style.cssText="position:fixed;inset:0;z-index:100000;background:#111;color:white;padding:20px;overflow:auto;font-family:Arial";
+
+  box.innerHTML=`
+    <h2>QUẢN LÝ SẢN PHẨM</h2>
+    <button onclick="document.getElementById('adminProductsBox').remove()">Đóng</button>
+
+    <div style="background:#252525;padding:15px;border-radius:12px;margin-top:15px">
+      <h3 id="productFormTitle">Thêm acc game mới</h3>
+
+      <input id="adminProductId" type="hidden">
+
+      <p>Tên sản phẩm</p>
+      <input id="adminProductName" placeholder="Tên acc game" style="width:100%;padding:12px">
+
+      <p>Game</p>
+      <select id="adminProductGame" style="width:100%;padding:12px">
+        <option>Liên Quân</option>
+        <option>Free Fire</option>
+        <option>Roblox</option>
+      </select>
+
+      <p>Giá bán (VNĐ)</p>
+      <input id="adminProductPrice" type="number" placeholder="500000" style="width:100%;padding:12px">
+
+      <p>Mô tả</p>
+      <textarea id="adminProductDescription" placeholder="Mô tả tài khoản" style="width:100%;padding:12px"></textarea>
+
+      <p>Ảnh sản phẩm</p>
+      <input id="adminProductImage" type="file" accept="image/*">
+
+      <p>
+        <button onclick="saveAdminProduct()" style="padding:12px;width:100%;background:#e52d70;color:white">
+          Lưu sản phẩm
+        </button>
+      </p>
+      <button onclick="resetAdminProductForm()">Làm mới biểu mẫu</button>
+    </div>
+
+    <h3>Danh sách sản phẩm</h3>
+    <div id="adminProductList">Đang tải...</div>
+  `;
+
+  document.body.appendChild(box);
+  await renderAdminProducts();
+}
+
+async function renderAdminProducts(){
+  const area=document.getElementById("adminProductList");
+  if(!area) return;
+
+  const {data:products,error}=await window.sb
+    .from("products")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    area.innerHTML="Lỗi tải sản phẩm: "+escapeHTML(error.message);
+    return;
+  }
+
+  if(!products || !products.length){
+    area.innerHTML="Chưa có sản phẩm.";
+    return;
+  }
+
+  area.innerHTML=products.map(p=>`
+    <div style="background:#252525;padding:15px;margin:12px 0;border-radius:12px">
+      ${p.image_url ? `<img src="${escapeHTML(p.image_url)}" style="width:100%;max-height:160px;object-fit:contain">` : ""}
+      <h3>${escapeHTML(p.title || "")}</h3>
+      <p>${escapeHTML(p.game || "")}</p>
+      <p>${money(p.price)}</p>
+      <p>${escapeHTML(p.description || "")}</p>
+      <button onclick="editAdminProduct('${p.id}')">✏️ Sửa</button>
+      <button onclick="deleteAdminProduct('${p.id}')">🗑️ Xóa</button>
+    </div>
+  `).join("");
+}
+
+function resetAdminProductForm(){
+  document.getElementById("adminProductId").value="";
+  document.getElementById("adminProductName").value="";
+  document.getElementById("adminProductGame").value="Liên Quân";
+  document.getElementById("adminProductPrice").value="";
+  document.getElementById("adminProductDescription").value="";
+  document.getElementById("adminProductImage").value="";
+  document.getElementById("productFormTitle").textContent="Thêm acc game mới";
+}
+
+async function editAdminProduct(id){
+  const {data:p,error}=await window.sb
+    .from("products").select("*").eq("id",id).single();
+
+  if(error){
+    alert(error.message);
+    return;
+  }
+
+  document.getElementById("adminProductId").value=p.id;
+  document.getElementById("adminProductName").value=p.title || "";
+  document.getElementById("adminProductGame").value=p.game || "Liên Quân";
+  document.getElementById("adminProductPrice").value=p.price || "";
+  document.getElementById("adminProductDescription").value=p.description || "";
+  document.getElementById("adminProductImage").value="";
+  document.getElementById("productFormTitle").textContent="Sửa sản phẩm";
+  document.getElementById("adminProductsBox").scrollTo({top:0,behavior:"smooth"});
+}
+
+async function saveAdminProduct(){
+  const id=document.getElementById("adminProductId").value;
+  const title=document.getElementById("adminProductName").value.trim();
+  const game=document.getElementById("adminProductGame").value;
+  const price=Number(document.getElementById("adminProductPrice").value);
+  const description=document.getElementById("adminProductDescription").value.trim();
+  const file=document.getElementById("adminProductImage").files[0];
+
+  if(!title || !price || price<=0){
+    alert("Vui lòng nhập tên và giá hợp lệ!");
+    return;
+  }
+
+  const {data:isAdmin,error:adminError}=await window.sb.rpc("is_admin");
+  if(adminError || !isAdmin){
+    alert("Không có quyền quản trị!");
+    return;
+  }
+
+  let image_url=null;
+
+  if(file){
+    if(!file.type.startsWith("image/")){
+      alert("Vui lòng chọn file ảnh!");
+      return;
+    }
+
+    const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+    const path=Date.now()+"-"+safeName;
+
+    const {error:uploadError}=await window.sb.storage
+      .from("product-images")
+      .upload(path,file,{upsert:true});
+
+    if(uploadError){
+      alert("Lỗi tải ảnh: "+uploadError.message);
+      return;
+    }
+
+    const {data:urlData}=window.sb.storage
+      .from("product-images")
+      .getPublicUrl(path);
+
+    image_url=urlData.publicUrl;
+  }
+
+  const product={
+    title,
+    game,
+    price,
+    description
+  };
+
+  if(image_url) product.image_url=image_url;
+
+  let result;
+
+  if(id){
+    result=await window.sb.from("products").update(product).eq("id",id);
+  }else{
+    if(!image_url){
+      alert("Vui lòng chọn ảnh sản phẩm!");
+      return;
+    }
+    product.image_url=image_url;
+    result=await window.sb.from("products").insert(product);
+  }
+
+  if(result.error){
+    alert("Lỗi lưu sản phẩm: "+result.error.message);
+    return;
+  }
+
+  alert("Đã lưu sản phẩm!");
+  resetAdminProductForm();
+  await renderAdminProducts();
+  await loadProducts();
+}
+
+async function deleteAdminProduct(id){
+  if(!confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) return;
+
+  const {data:isAdmin,error:adminError}=await window.sb.rpc("is_admin");
+  if(adminError || !isAdmin){
+    alert("Không có quyền quản trị!");
+    return;
+  }
+
+  const {error}=await window.sb.from("products").delete().eq("id",id);
+
+  if(error){
+    alert("Lỗi xóa: "+error.message);
+    return;
+  }
+
+  alert("Đã xóa sản phẩm!");
+  await renderAdminProducts();
+  await loadProducts();
+}
 </script>
 
 </body>
