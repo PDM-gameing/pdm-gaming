@@ -426,6 +426,12 @@ if(error){
       <p>Nội dung: <b>${note}</b></p>
       <p>Vui lòng chuyển đúng số tiền và nội dung.</p>
       <button onclick="document.getElementById('paymentBox').remove()">Đóng</button>
+   <hr>
+<p><b>Gửi ảnh xác nhận chuyển khoản</b></p>
+<input id="paymentProofFile" type="file" accept="image/*">
+<button onclick="submitPaymentProof('${note}')">
+  Gửi ảnh xác nhận
+</button>
     </div>`;
   document.body.appendChild(box);
 }
