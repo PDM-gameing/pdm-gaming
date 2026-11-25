@@ -321,6 +321,7 @@ async function submitAuth(mode){
   }
 
   if(mode==="login"){
+   alert("UID đăng nhập: " + result.data.user.id);
     alert("Đăng nhập thành công!");
     closeAuth();
     openTab("profile");
