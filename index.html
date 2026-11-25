@@ -110,7 +110,7 @@ button{cursor:pointer}
   <button class="category" onclick="chooseGame('Free Fire',this)">🔥 Free Fire</button>
   <button class="category" onclick="chooseGame('Roblox',this)">🎲 Roblox</button>
  </div>
- <h3>🔥 Acc nổi bật</h3>
+ <h3 id="gameTitle">🔥 Acc nổi bật</h3>>
  <div class="products" id="products"></div>
  <div class="card" style="margin-top:18px">
   <h3>🏪 Trở thành người bán</h3>
@@ -525,10 +525,20 @@ if(error){
   alert("Đã gửi ảnh chuyển khoản. Vui lòng chờ quản trị viên xác nhận!");
 }
  function chooseGame(g,el){
- selected=g;
- document.querySelectorAll(".category").forEach(x=>x.classList.remove("active"));
- el.classList.add("active");
- renderProducts();
+  selected=g;
+  document.querySelectorAll(".category").forEach(b=>{
+    b.classList.remove("active");
+  });
+  el.classList.add("active");
+
+  document.getElementById("gameTitle").innerText =
+    g==="Tất cả" ? "🔥 Acc nổi bật" : "🎮 Acc game " + g;
+
+  renderProducts();
+  document.getElementById("products").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
 }
 function openTab(id,btn){
  document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
