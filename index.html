@@ -523,10 +523,11 @@ async function sendMessage(){
   const { error } = await window.sb
     .from("world_messages")
     .insert({
-      user_id: user.id,
-      username: name,
-      message: value
-    });
+  user_id: user.id,
+  username: name,
+  message: value,
+  content: value
+});
 
   if(error){
     alert("Lỗi gửi tin nhắn: " + error.message);
