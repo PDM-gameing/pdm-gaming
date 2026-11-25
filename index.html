@@ -999,8 +999,8 @@ async function saveAdminProduct(){
     const path=Date.now()+"-"+safeName;
 
     const {error:uploadError}=await window.sb.storage
-      .from("product-images")
-      .upload(path,file,{upsert:true});
+  .from("product-images")
+  .upload(path,file);
 
     if(uploadError){
       alert("Lỗi tải ảnh: "+uploadError.message);
