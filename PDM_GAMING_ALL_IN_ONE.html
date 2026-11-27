@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDM GAMING</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f6f5fa;color:#242333;font-family:Arial,sans-serif;padding-bottom:85px}
+header{background:white;padding:17px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px #0001}
+.logo{font-size:23px;font-weight:900;color:#e52d70}
+.logo span{color:#282b40}
+button{cursor:pointer}
+.btn{border:0;border-radius:10px;padding:12px 16px;background:#eb3470;color:white;font-weight:bold}
+.banner{margin:15px;padding:25px 20px;border-radius:18px;color:white;background:linear-gradient(120deg,#29165c,#e33373)}
+.banner h1{margin:0 0 10px}
+.banner p{font-size:14px}
+.panel{display:none;padding:16px}
+.panel.active{display:block}
+.search input,.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;background:white;font-size:15px;margin:6px 0 12px}
+.categories{display:flex;gap:8px;overflow:auto;padding:15px 0}
+.category{flex-shrink:0;border:1px solid #ddd;border-radius:12px;padding:12px;background:white;font-weight:bold}
+.category.active{background:#fff0f5;color:#e52d70;border-color:#e52d70}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.product{background:white;border-radius:13px;overflow:hidden;border:1px solid #eee}
+.thumb{height:120px;display:grid;place-items:center;text-align:center;color:white;font-weight:bold;font-size:19px;background:linear-gradient(135deg,#1269b8,#9c6aff)}
+.thumb.pink{background:linear-gradient(135deg,#9d287c,#ff80b2)}
+.thumb.gold{background:linear-gradient(135deg,#72500c,#e5ba51)}
+.info{padding:11px}
+.price{color:#e33355;font-weight:900;margin:9px 0}
+.old{color:#aaa;text-decoration:line-through;font-size:12px}
+.buy{width:100%;border:0;border-radius:8px;background:#e93670;color:white;padding:10px;font-weight:bold;margin-top:8px}
+.card{background:white;padding:15px;border-radius:14px;margin-bottom:13px;border:1px solid #eee}
+.card h3{margin:0 0 12px}
+.muted{color:#888;font-size:13px}
+.field label{font-size:13px;font-weight:bold}
+.chatbox{height:190px;overflow:auto;background:#f8f7fb;border-radius:12px;padding:12px;margin-bottom:10px}
+.message{background:white;border-radius:12px;padding:10px;margin-bottom:9px;max-width:90%;overflow-wrap:anywhere}
+.message.mine{margin-left:auto;background:#ffe6ef}
+.chatinput{display:flex;gap:7px}
+.chatinput input{flex:1;min-width:0;padding:12px;border:1px solid #ddd;border-radius:10px}
+.player{display:flex;gap:12px;align-items:center}
+.avatar{width:48px;height:48px;border-radius:50%;background:#eee;display:grid;place-items:center;font-size:24px}
+.playerinfo{flex:1;min-width:0}
+.tag{display:inline-block;background:#fce7ef;color:#d52e68;border-radius:20px;padding:5px 9px;font-size:11px;margin:3px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:white;display:grid;grid-template-columns:repeat(4,1fr);padding:9px 2px;border-top:1px solid #eee;z-index:20}
+.bottom button{border:0;background:none;color:#777;font-size:11px;font-weight:bold}
+.bottom button.active{color:#e52d70}
+.bottom span{display:block;font-size:21px;margin-bottom:4px}
+.notice{font-size:12px;color:#aaa0bd;line-height:1.55}
+/* NANG CAP GIAO DIEN PDM GAMING */
+.banner{
+  background:linear-gradient(135deg,#211044,#642078,#ed287b);
+  border-radius:22px;
+  padding:30px 22px;
+  color:white;
+  box-shadow:0 10px 28px rgba(90,20,110,.22);
+}
+/* NANG CAP GIAO DIEN PDM GAMING */
+.banner{
+  background:linear-gradient(135deg,#211044,#642078,#ed287b);
+  border-radius:22px;
+  padding:30px 22px;
+  color:white;
+  box-shadow:0 10px 28px rgba(90,20,110,.22);
+}
+.banner h1{
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:-.5px;
+}
+.banner p{
+  font-size:15px;
+  line-height:1.6;
+}
+.category{
+  border-radius:14px;
+  font-weight:700;
+  padding:13px 17px;
+}
+.category.active{
+  background:#fff0f5;
+  border:1px solid #ed287b;
+  color:#ed287b;
+}
+#products .product{
+  box-shadow:0 5px 16px rgba(0,0,0,.06);
+  transition:transform .2s;
+}
+#products .product .buy{
+  font-weight:800;
+  min-height:48px;
+}
+
+/* PDM GAMING - DARK NEON THEME */
+body {
+  background: #090914;
+  color: #f5f3ff;
+}
+
+header {
+  background: #111120;
+  border-bottom: 1px solid #30234d;
+  box-shadow: 0 4px 20px #0008;
+}
+
+.logo {
+  color: #f12d91;
+}
+
+.logo span {
+  color: #a879ff;
+}
+
+.banner {
+  background: linear-gradient(135deg,#140d2b,#40166d,#e52d91);
+  border: 1px solid #7544a8;
+  box-shadow: 0 0 25px #8d36d955;
+}
+
+.panel {
+  color: #f5f3ff;
+}
+
+.panel h2,
+.panel h3 {
+  color: #f5f3ff;
+}
+
+.search input,
+.field input,
+.field select {
+  background: #171528;
+  color: white;
+  border: 1px solid #59417d;
+}
+
+.search input::placeholder {
+  color: #aaa0bd;
+}
+
+.category {
+  background: #171528;
+  color: #d9c9ff;
+  border: 1px solid #59417d;
+}
+
+.category.active {
+  background: #40166d;
+  color: #ff5eb5;
+  border: 1px solid #ed3ca2;
+  box-shadow: 0 0 12px #ed3ca255;
+}
+
+#products .product,
+.card {
+  background: #171528;
+  color: #f5f3ff;
+  border: 1px solid #382853;
+  box-shadow: 0 5px 20px #0006;
+}
+
+#products .product .info {
+  color: #f5f3ff;
+}
+
+.price {
+  color: #ff4da6;
+}
+
+.old {
+  color: #91899e;
+}
+
+#products .product .buy {
+  background: linear-gradient(100deg,#8b35e8,#ed278e);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 0 14px #d52caa44;
+}
+
+.muted,
+.notice {
+  color: #aaa0bd;
+}
+
+.bottom {
+  background: #111120;
+  border-top: 1px solid #382853;
+}
+
+
+/* WALLET TOPUP */
+.wallet-balance{background:linear-gradient(120deg,#251044,#8b2ac4,#ed287b);padding:20px;border-radius:18px;color:#fff;margin-bottom:14px}
+.wallet-balance strong{font-size:28px;display:block;margin-top:8px}
+.wallet-action{width:100%;padding:13px;border:0;border-radius:10px;background:linear-gradient(100deg,#8b35e8,#ed278e);color:#fff;font-weight:800}
+
+
+/* PDM GAMING - unified dark neon responsive refresh */
+:root{--pdm-bg:#090914;--pdm-surface:#171528;--pdm-border:#382853;--pdm-pink:#ed278e;--pdm-purple:#8b35e8;--pdm-text:#f5f3ff;--pdm-muted:#aaa0bd}
+body{background:radial-gradient(circle at 90% -10%,#30104a 0,transparent 35%),#090914;color:var(--pdm-text);padding-bottom:90px}
+header{background:rgba(17,17,32,.96);border-bottom:1px solid #30234d;backdrop-filter:blur(14px);padding:13px 16px;gap:8px}
+.logo{font-size:21px;letter-spacing:.3px}.logo span{color:#a879ff}
+.hero-banner{position:relative;overflow:hidden;margin:16px;padding:26px 21px 22px;border:1px solid #7544a8;border-radius:24px;background:radial-gradient(circle at 95% 5%,#e52d9166,transparent 35%),linear-gradient(135deg,#140d2b,#40166d,#a21f75);box-shadow:0 12px 34px #5a167c44}
+.hero-banner:after{content:'✦';position:absolute;right:22px;top:30px;font-size:72px;color:#fff2;pointer-events:none}
+.hero-kicker,.eyebrow{font-size:10px;font-weight:900;letter-spacing:2px;color:#ff9acb}
+.hero-banner h1{font-size:30px;margin:11px 0 8px;letter-spacing:-.7px}.hero-banner p{max-width:520px;line-height:1.55;color:#f4e9ff}
+.hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}.hero-primary{background:white;color:#7222a4}.hero-secondary{background:#ffffff20;border:1px solid #ffffff55;color:white}
+.hero-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}.hero-pills span{background:#ffffff16;border:1px solid #ffffff25;border-radius:30px;padding:6px 9px;font-size:10px}
+.promo-strip{margin:-5px 16px 14px;color:#d9c6ef;font-size:11px;display:flex;align-items:center;gap:7px}.promo-dot{width:7px;height:7px;border-radius:50%;background:#ff4fa5;box-shadow:0 0 10px #ff4fa5}.promo-sep{color:#ed65b4}
+.panel{padding:15px 15px 26px}.panel h2{font-size:21px;letter-spacing:-.3px}.section-heading{display:flex;justify-content:space-between;align-items:center}
+.card{background:linear-gradient(145deg,#1a1830,#141322);border:1px solid var(--pdm-border);border-radius:17px;box-shadow:0 8px 24px #0003}
+.search input,.field input,.field select,.field textarea,.chatinput input{background:#171528;color:white;border:1px solid #59417d;border-radius:12px}.field textarea{width:100%;padding:13px;margin:6px 0 12px}
+.field input:focus,.field select:focus,.field textarea:focus,.chatinput input:focus{outline:1px solid #ed3ca2;border-color:#ed3ca2}
+#products .product{background:#171528;border:1px solid #382853;border-radius:16px;overflow:hidden;box-shadow:0 8px 23px #0005}#products .thumb{height:135px}#products .info{padding:13px}
+#products .product .buy{background:linear-gradient(100deg,#8b35e8,#ed278e);border-radius:11px;min-height:42px}
+.chatbox{height:178px;background:#100f1d;border:1px solid #382853;padding:9px}.message{font-size:12px;line-height:1.35;background:#211d35;padding:8px 10px}.message.mine{background:#48203f}.chatinput input{font-size:13px}.chatinput .btn{padding:10px 13px}
+.bottom{background:rgba(17,17,32,.97);border-top:1px solid #382853;backdrop-filter:blur(15px);padding:8px 2px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -8px 30px #0005}.bottom button{color:#aaa0bd}.bottom button.active{color:#ff5eb5}.bottom span{font-size:20px}
+.btn,.wallet-action{background:linear-gradient(100deg,#7534d4,#ed278e);box-shadow:0 5px 14px #a12baf30}.muted,.notice{color:#aaa0bd}
+.account-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.account-tile{min-height:115px;text-align:left;padding:14px;border-radius:15px;border:1px solid #44315f;background:linear-gradient(140deg,#1d1932,#141321);color:#fff;display:flex;flex-direction:column;gap:7px}.account-tile span{font-size:24px}.account-tile b{font-size:13px}.account-tile small{color:#aaa0bd;font-size:10px;line-height:1.4}.admin-shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.admin-shortcuts .btn{font-size:11px;padding:10px 7px}
+.seller-commission{display:flex;flex-direction:column;gap:4px;padding:19px;border-radius:17px;margin-bottom:14px;background:linear-gradient(120deg,#211044,#692278,#bd287d);border:1px solid #8f4ca7}.seller-commission strong{font-size:38px}.seller-commission span{font-weight:800}.seller-commission small{color:#f6dff0;line-height:1.4}.support-card{border-color:#5a3b77}.random-locked{text-align:center;padding:22px}.locked-icon{font-size:42px}.random-locked p{color:#c2b5d4;line-height:1.55;font-size:13px}.random-info{display:flex;flex-direction:column;gap:5px;text-align:left;padding:11px;margin-top:9px;border-radius:11px;background:#211d35}.random-info span{font-size:11px;color:#b7a8ca}.random-info b{font-size:12px}.wallet-balance{border:1px solid #8852a9;box-shadow:0 8px 26px #7d24ae44}.wallet-action{min-height:46px}.field label{display:block;color:#ddd1ef;margin-top:7px}.tag{background:#3c204b;color:#ff9acb}
+#profileview p{font-size:13px;color:#d8cce9}.account-admin{margin-top:15px}
+@media(min-width:700px){.panel{max-width:950px;margin:auto}.hero-banner{max-width:950px;margin:22px auto 16px}.promo-strip{max-width:950px;margin:0 auto 18px}.account-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#products{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:370px){.account-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.account-tile{padding:10px}.hero-banner h1{font-size:25px}.bottom button{font-size:10px}}
+
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">PDM <span>GAMING</span></div>
+<button class="btn" id="loginBtn" onclick="openAuth()">Đăng nhập</button>
+<button class="btn" id="registerBtn" onclick="registerAuth()">Đăng ký</button>
+<button class="btn" id="accountBtn" style="display:none"></button>
+</header>
+
+<div class="banner hero-banner">
+ <div class="hero-kicker">PLAYER MARKETPLACE • COMMUNITY</div>
+ <h1>🎮 PDM GAMING</h1>
+ <p>Mua bán tài khoản game, tìm đồng đội và kết nối cộng đồng game thủ trong một nơi.</p>
+ <div class="hero-actions">
+  <button class="btn hero-primary" onclick="openTab('shop')">Khám phá cửa hàng <span>→</span></button>
+  <button class="btn hero-secondary" onclick="openTab('seller')">Đăng ký bán acc</button>
+ </div>
+ <div class="hero-pills"><span>🛡️ Hỗ trợ khách hàng</span><span>💬 Cộng đồng game thủ</span><span>💎 Phí nền tảng minh bạch</span></div>
+</div>
+<div class="promo-strip"><span class="promo-dot"></span> Chào mừng đến với PDM GAMING <span class="promo-sep">•</span> Mua bán an toàn, thông tin rõ ràng</div>
+
+<!-- SHOP -->
+<section id="shop" class="panel active">
+ <h2>🛒 Shop tài khoản game</h2>
+ <div class="search">
+  <input id="search" placeholder="Tìm acc game..." oninput="renderProducts()">
+ </div>
+ <div class="categories">
+  <button class="category active" onclick="chooseGame('Tất cả',this)">Tất cả</button>
+  <button class="category" onclick="chooseGame('Liên Quân',this)">⚔️ Liên Quân</button>
+  <button class="category" onclick="chooseGame('Free Fire',this)">🔥 Free Fire</button>
+  <button class="category" onclick="chooseGame('Roblox',this)">🎲 Roblox</button>
+ </div>
+ <h3 id="gameTitle">🔥 Acc nổi bật</h3>
+ <div class="products" id="products"></div>
+ <div class="card" style="margin-top:18px">
+  <h3>🏪 Trở thành người bán</h3>
+  <p>Đăng ký để giới thiệu tài khoản game của bạn.</p>
+  <button class="btn" onclick="alert('Chức năng đăng ký người bán sẽ được phát triển ở phiên bản tiếp theo.')">Đăng ký bán acc</button>
+ </div>
+</section>
+
+<!-- CHAT -->
+<section id="chat" class="panel">
+ <h2 style="font-size:19px">🌍 Chat thế giới</h2>
+ <p class="muted">Trò chuyện nhanh cùng cộng đồng PDM GAMING.</p>
+ <div class="chatbox" id="chatbox">
+  <div class="message"><b>🤖 PDM BOT</b><br>Chào mừng bạn đến với cộng đồng PDM GAMING!</div>
+ </div>
+ <div class="chatinput">
+  <input id="chattext" placeholder="Nhập tin nhắn..." maxlength="500">
+  <button class="btn" onclick="sendMessage()">Gửi</button>
+ </div>
+ <p class="notice">Bản hiện tại lưu tin nhắn trên thiết bị của bạn. Muốn chat trực tiếp với người khác qua Internet cần kết nối máy chủ và tài khoản đăng nhập.</p>
+</section>
+
+<!-- FIND PLAYER -->
+<section id="find" class="panel">
+ <h2>🎮 Tìm đồng đội</h2>
+ <p class="muted">Tìm người chơi chung, lập team và kết bạn.</p>
+ <div class="card">
+  <div class="field">
+   <label>Chọn game</label>
+   <select id="findgame">
+    <option>Liên Quân</option>
+    <option>Free Fire</option>
+    <option>Roblox</option>
+   </select>
+   <label>Rank hiện tại</label>
+   <input id="rank" placeholder="Ví dụ: Cao thủ, Kim cương...">
+   <label>Muốn tìm người chơi ở đâu?</label>
+   <input id="findcity" placeholder="Ví dụ: TP.HCM">
+   <button class="btn" onclick="findPlayers()">Tìm đồng đội</button>
+  </div>
+ </div>
+ <div id="players">
+  <h3>👥 Game thủ mới</h3>
+ </div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="panel">
+ <h2>👤 Hồ sơ game thủ</h2>
+ <div class="card">
+  <div class="field">
+   <label>Tên hiển thị</label>
+   <input id="pname" placeholder="Tên game thủ">
+   <label>Giới tính</label>
+   <select id="gender">
+    <option value="">Chọn giới tính</option>
+    <option>Nam</option>
+    <option>Nữ</option>
+    <option>Khác</option>
+    <option>Không muốn tiết lộ</option>
+   </select>
+   <label>Năm sinh</label>
+   <input id="birth" type="number" placeholder="Ví dụ: 2005">
+   <label>Tỉnh / Thành phố</label>
+   <input id="city" placeholder="Ví dụ: TP. Hồ Chí Minh">
+   <label>Game yêu thích</label>
+   <select id="game">
+    <option>Liên Quân</option>
+    <option>Free Fire</option>
+    <option>Roblox</option>
+   </select>
+   <label>Rank</label>
+   <input id="prank" placeholder="Rank hiện tại">
+   <label>ID game</label>
+   <input id="gameid" placeholder="Nhập ID game">
+   <label>Facebook (đường dẫn trang cá nhân)</label>
+   <input id="facebookLink" type="url" placeholder="https://facebook.com/ten-cua-ban">
+   <label>Zalo (số điện thoại hoặc liên kết)</label>
+   <input id="zaloContact" placeholder="Số Zalo hoặc liên kết Zalo">
+   <label>Thông tin liên lạc</label>
+   <input id="contactPhone" type="tel" placeholder="Số điện thoại liên hệ">
+   <input id="contactEmail" type="email" placeholder="Email liên hệ">
+   <label>Bạn có sử dụng mic không?</label>
+   <select id="mic">
+    <option>Có mic</option>
+    <option>Không có mic</option>
+    <option>Chỉ nghe, không nói</option>
+   </select>
+<label>Ảnh đại diện</label>
+<input id="avatarFile" type="file" accept="image/*">
+   <button class="btn" onclick="saveProfile()">Lưu hồ sơ</button>
+  </div>
+ </div>
+ <div id="profileview" class="card">
+  <p class="muted">Bạn chưa tạo hồ sơ game thủ.</p>
+ </div>
+ <p class="notice">Không nên công khai số điện thoại, địa chỉ nhà, mật khẩu hoặc thông tin riêng tư. Năm sinh và giới tính nên để tùy chọn hiển thị.</p>
+</section>
+
+
+<!-- WALLET -->
+<section id="wallet" class="panel">
+  <h2>💳 Ví PDM GAMING</h2>
+  <div class="wallet-balance"><div>Số dư khả dụng</div><strong id="walletBalance">Đang tải...</strong><small>Quy đổi: 10K = 10.000 VNĐ</small></div>
+  <div class="card"><h3>➕ Nạp tiền vào ví</h3><p class="muted">Tối thiểu 10.000 VNĐ, theo bội số 10.000 VNĐ.</p><div class="field"><label>Số tiền muốn nạp (VNĐ)</label><input id="topupAmount" type="number" min="10000" step="10000" value="10000"></div><button class="wallet-action" onclick="createWalletTopup()">Tạo yêu cầu nạp tiền</button><p class="notice">Tiền chỉ được cộng sau khi quản trị viên kiểm tra và xác nhận đã nhận chuyển khoản.</p></div>
+  <div class="card"><h3>📜 Lịch sử nạp tiền</h3><div id="walletHistory">Đang tải...</div><button class="btn" onclick="loadWallet()">Làm mới</button></div>
+</section>
+
+
+<!-- ACCOUNT DASHBOARD -->
+<section id="account" class="panel">
+ <div class="section-heading"><div><span class="eyebrow">MY PDM</span><h2>👤 Tài khoản của tôi</h2><p class="muted">Quản lý hồ sơ, số dư và hoạt động mua bán.</p></div></div>
+ <div class="account-grid">
+  <button class="account-tile" onclick="openTab('profile')"><span>🪪</span><b>Thông tin khách hàng</b><small>Hồ sơ, Facebook, Zalo và liên lạc</small></button>
+  <button class="account-tile" onclick="openTab('notifications')"><span>🔔</span><b>Thông báo</b><small>Tin mới và cập nhật đơn hàng</small></button>
+  <button class="account-tile" onclick="openTab('wallet')"><span>💳</span><b>Nạp tiền</b><small>Số dư và yêu cầu nạp ví</small></button>
+  <button class="account-tile" onclick="openTab('withdraw')"><span>🏦</span><b>Rút tiền</b><small>Gửi yêu cầu rút số dư khả dụng</small></button>
+  <button class="account-tile" onclick="openTab('history')"><span>📜</span><b>Lịch sử</b><small>Lịch sử mua hàng và giao dịch ví</small></button>
+  <button class="account-tile" onclick="openTab('sold')"><span>📦</span><b>Tài khoản đã bán</b><small>Đơn bán và tiền thực nhận</small></button>
+  <button class="account-tile" onclick="openTab('cart')"><span>🛒</span><b>Giỏ hàng đã thêm</b><small>Sản phẩm bạn đã lưu</small></button>
+  <button class="account-tile" onclick="openTab('seller')"><span>🏪</span><b>Khu vực người bán</b><small>Đăng ký bán acc, quản lý tin đăng</small></button>
+  <button class="account-tile" onclick="openTab('random')"><span>🎁</span><b>Random / Quà tặng</b><small>Thông tin trạng thái chương trình</small></button>
+ </div>
+ <div class="card account-admin" id="accountAdminTools" style="display:none">
+  <h3>🛠 Công cụ quản trị</h3>
+  <div class="admin-shortcuts">
+   <button class="btn" onclick="adminCustomerDirectory()">Thông tin khách hàng</button>
+   <button class="btn" onclick="adminNotifications()">Đăng thông báo</button>
+   <button class="btn" onclick="adminSupportTickets()">Yêu cầu hỗ trợ</button>
+   <button class="btn" onclick="adminSellerApplications()">Đăng ký bán acc</button>
+   <button class="btn" onclick="adminWalletTopups()">Nạp ví</button>
+   <button class="btn" onclick="adminWithdrawals()">Rút tiền</button>
+   <button class="btn" onclick="adminSellerListings()">Tin đăng người bán</button>
+   <button class="btn" onclick="adminOrders()">Quản trị đơn hàng</button>
+  </div>
+ </div>
+</section>
+
+<!-- NOTIFICATIONS -->
+<section id="notifications" class="panel">
+ <h2>🔔 Thông báo</h2>
+ <p class="muted">Thông báo website, đơn hàng và hoạt động tài khoản.</p>
+ <div id="notificationList"><div class="card">Đang tải thông báo...</div></div>
+ <button class="btn" onclick="loadNotifications()">Làm mới</button>
+</section>
+
+<!-- WITHDRAWALS -->
+<section id="withdraw" class="panel">
+ <h2>🏦 Rút tiền</h2>
+ <div class="wallet-balance"><div>Số dư ví hiện tại</div><strong id="withdrawBalance">Đang tải...</strong></div>
+ <div class="card"><h3>Tạo yêu cầu rút tiền</h3>
+  <div class="field"><label>Số tiền muốn rút (VNĐ)</label><input id="withdrawAmount" type="number" min="10000" step="10000" placeholder="Ví dụ: 100000">
+   <label>Ngân hàng</label><input id="withdrawBank" placeholder="Tên ngân hàng">
+   <label>Chủ tài khoản</label><input id="withdrawName" placeholder="Họ tên chủ tài khoản">
+   <label>Số tài khoản</label><input id="withdrawAccount" inputmode="numeric" placeholder="Số tài khoản nhận tiền">
+  </div>
+  <button class="wallet-action" onclick="requestWithdrawal()">Gửi yêu cầu rút tiền</button>
+  <p class="notice">Yêu cầu sẽ được quản trị viên kiểm tra. Không nhập mật khẩu, mã OTP hoặc thông tin đăng nhập ngân hàng.</p>
+ </div>
+ <div class="card"><h3>Lịch sử rút tiền</h3><div id="withdrawHistory">Đang tải...</div></div>
+</section>
+
+<!-- HISTORY -->
+<section id="history" class="panel">
+ <h2>📜 Lịch sử hoạt động</h2>
+ <div class="card"><h3>Đơn mua hàng</h3><div id="purchaseHistory">Đang tải...</div></div>
+ <div class="card"><h3>Giao dịch ví</h3><div id="ledgerHistory">Đang tải...</div></div>
+</section>
+
+<!-- SOLD -->
+<section id="sold" class="panel">
+ <h2>📦 Tài khoản đã bán</h2>
+ <p class="muted">Doanh thu người bán được ghi nhận khi đơn hàng được quản trị viên xác nhận hoàn tất.</p>
+ <div id="soldHistory" class="card">Đang tải...</div>
+</section>
+
+<!-- CART -->
+<section id="cart" class="panel">
+ <h2>🛒 Giỏ hàng đã thêm</h2>
+ <div id="cartItems" class="card">Chưa có sản phẩm trong giỏ.</div>
+</section>
+
+<!-- SELLER AREA -->
+<section id="seller" class="panel">
+ <h2>🏪 Đăng ký bán tài khoản game</h2>
+ <div class="seller-commission"><strong>5%</strong><span>Phí nền tảng trên đơn bán hoàn tất</span><small>Người bán nhận 95% giá trị đơn hàng sau khi hoàn tất, trước các khoản phí khác nếu có.</small></div>
+ <div class="card"><h3>Đăng ký trở thành người bán</h3>
+  <div class="field"><label>Họ tên / tên cửa hàng</label><input id="sellerName" placeholder="Tên người bán hoặc cửa hàng">
+   <label>Thông tin liên hệ</label><input id="sellerContact" placeholder="Số điện thoại, Zalo hoặc email">
+   <label>Game muốn kinh doanh</label><select id="sellerGame"><option>Liên Quân</option><option>Free Fire</option><option>Roblox</option><option>Khác</option></select>
+   <label>Giới thiệu cửa hàng</label><textarea id="sellerDescription" rows="3" placeholder="Mô tả loại tài khoản bạn dự định bán"></textarea>
+  </div>
+  <button class="wallet-action" onclick="applySeller()">Gửi đăng ký người bán</button><p id="sellerApplicationStatus" class="muted"></p>
+ </div>
+ <div class="card"><h3>Đăng tài khoản để bán</h3><p class="muted">Chỉ dùng được khi hồ sơ người bán đã được duyệt.</p>
+  <div class="field"><label>Tên tài khoản</label><input id="sellerProductTitle" placeholder="Tên acc game">
+   <label>Game</label><select id="sellerProductGame"><option>Liên Quân</option><option>Free Fire</option><option>Roblox</option></select>
+   <label>Giá bán (VNĐ)</label><input id="sellerProductPrice" type="number" min="1000" placeholder="Giá niêm yết">
+   <label>Link ảnh sản phẩm (không bắt buộc)</label><input id="sellerProductImage" type="url" placeholder="https://...">
+   <label>Mô tả</label><textarea id="sellerProductDescription" rows="3" placeholder="Mô tả tài khoản"></textarea>
+  </div>
+  <button class="wallet-action" onclick="submitSellerProduct()">Gửi tin đăng chờ duyệt</button>
+  <div id="sellerListings" class="muted" style="margin-top:12px"></div>
+ </div>
+</section>
+
+<!-- CUSTOMER SUPPORT -->
+<section id="support" class="panel">
+ <h2>🎧 Hỗ trợ khách hàng</h2>
+ <div class="card support-card"><h3>Chúng tôi sẵn sàng hỗ trợ</h3><p class="muted">Gửi yêu cầu để bộ phận PDM GAMING tiếp nhận và phản hồi.</p>
+  <div class="field"><label>Chủ đề</label><select id="supportSubject"><option>Hỗ trợ đơn hàng</option><option>Nạp tiền / rút tiền</option><option>Tài khoản / đăng nhập</option><option>Đăng bán tài khoản</option><option>Báo lỗi website</option><option>Khác</option></select>
+   <label>Nội dung cần hỗ trợ</label><textarea id="supportMessage" rows="5" placeholder="Mô tả vấn đề của bạn..."></textarea>
+   <label>Email hoặc Zalo liên hệ</label><input id="supportContact" placeholder="Thông tin để chúng tôi phản hồi">
+  </div>
+  <button class="wallet-action" onclick="createSupportTicket()">Gửi yêu cầu hỗ trợ</button>
+ </div>
+ <div class="card"><h3>Yêu cầu đã gửi</h3><div id="mySupportTickets">Đang tải...</div></div>
+</section>
+
+<!-- CHANCE-BASED REWARDS STATUS -->
+<section id="random" class="panel">
+ <h2>🎁 Random Acc & Quân Huy</h2>
+ <div class="card random-locked"><div class="locked-icon">🔒</div><h3>Chương trình random đang tạm khóa</h3>
+  <p>Website chưa nhận tiền hoặc chạy thuật toán quay thưởng ngẫu nhiên. Chức năng chỉ được mở sau khi xác minh giấy phép và điều kiện áp dụng cho đúng hình thức phần thưởng.</p>
+  <div class="random-info"><span>Random Acc</span><b>Cần xác minh cơ chế tồn kho và phần thưởng</b></div>
+  <div class="random-info"><span>Random Quân Huy</span><b>Cần xác minh tỷ lệ và điều kiện chương trình</b></div>
+ </div>
+</section>
+
+<nav class="bottom" style="grid-template-columns:repeat(5,1fr)">
+ <button class="active" onclick="openTab('shop',this)"><span>🏠</span>Shop</button>
+ <button onclick="openTab('chat',this)"><span>💬</span>Chat</button>
+ <button onclick="openTab('find',this)"><span>🎮</span>Đồng đội</button>
+ <button onclick="openTab('account',this)"><span>👤</span>Tài khoản</button>
+ <button onclick="openTab('support',this)"><span>🎧</span>Hỗ trợ</button>
+</nav>
+
+<script>
+let data=[];
+let selected="Tất cả";
+let profiles=[];
+let myProfile=null;
+ async function openAuth(){
+  const email = prompt("Nhập email của bạn:");
+  if(!email) return;
+
+  const password = prompt("Nhập mật khẩu:");
+  if(!password) return;
+
+  const {data,error} = await sb.auth.signInWithPassword({
+    email: email.trim(),
+    password: password
+  });
+
+  if(error){
+    alert("Đăng nhập thất bại: " + error.message);
+    return;
+  }
+
+  alert("Đăng nhập thành công!");
+  openTab("profile");
+}
+ 
+function openAuth(){
+  showAuth("login");
+}
+
+function registerAuth(){
+  showAuth("register");
+}
+
+function showAuth(mode){
+  const old=document.getElementById("authModal");
+  if(old) old.remove();
+
+  const box=document.createElement("div");
+  box.id="authModal";
+
+  box.style.cssText=
+    "position:fixed;inset:0;background:#000b;"+
+    "z-index:99999;display:flex;align-items:center;"+
+    "justify-content:center;padding:20px;";
+
+  box.innerHTML=`
+    <div style="
+      background:#171525;color:white;width:100%;
+      max-width:390px;padding:25px;border-radius:22px;
+      box-shadow:0 15px 50px #0008;
+      border:1px solid #713c91;
+    ">
+      <div style="display:flex;justify-content:space-between;
+        align-items:center;margin-bottom:20px">
+        <h2 style="margin:0;color:#f04b91">PDM GAMING</h2>
+        <button onclick="closeAuth()" style="
+          background:none;border:0;color:white;font-size:26px">
+          ×
+        </button>
+      </div>
+
+      <h2 style="text-align:center">
+        ${mode==="login"?"Chào mừng trở lại!":"Tạo tài khoản mới"}
+      </h2>
+      <p style="text-align:center;color:#aaa">
+        ${mode==="login"?"Đăng nhập để tiếp tục":"Tham gia cộng đồng PDM GAMING"}
+      </p>
+
+      <label>Email</label>
+      <input id="authEmail" type="email"
+        placeholder="Nhập email của bạn"
+        autocomplete="email"
+        style="width:100%;padding:15px;margin:8px 0 16px;
+        border-radius:12px;border:1px solid #555;
+        background:#292638;color:white;box-sizing:border-box">
+
+      <label>Mật khẩu</label>
+      <input id="authPassword" type="password"
+        placeholder="Nhập mật khẩu"
+        autocomplete="${mode==="login"?"current-password":"new-password"}"
+        style="width:100%;padding:15px;margin:8px 0 20px;
+        border-radius:12px;border:1px solid #555;
+        background:#292638;color:white;box-sizing:border-box">
+
+      <button onclick="submitAuth('${mode}')" style="
+        width:100%;padding:15px;border:0;border-radius:12px;
+        color:white;font-weight:bold;font-size:16px;
+        background:linear-gradient(100deg,#6826a5,#e83e83)">
+        ${mode==="login"?"ĐĂNG NHẬP":"ĐĂNG KÝ"}
+      </button>
+
+      <p style="text-align:center;color:#bbb;margin-top:20px">
+        ${mode==="login"?"Chưa có tài khoản?":"Đã có tài khoản?"}
+        <button onclick="showAuth('${mode==="login"?"register":"login"}')"
+          style="border:0;background:none;color:#ff65a4;font-weight:bold">
+          ${mode==="login"?"Đăng ký ngay":"Đăng nhập"}
+        </button>
+      </p>
+    </div>
+  `;
+
+  document.body.appendChild(box);
+}
+
+function closeAuth(){
+  const box=document.getElementById("authModal");
+  if(box) box.remove();
+}
+
+async function submitAuth(mode){
+  const email=document.getElementById("authEmail").value.trim();
+  const password=document.getElementById("authPassword").value;
+
+  if(!email || !password){
+    alert("Vui lòng nhập email và mật khẩu!");
+    return;
+  }
+
+  if(mode==="register" && password.length<6){
+    alert("Mật khẩu phải có ít nhất 6 ký tự!");
+    return;
+  }
+
+  let result;
+
+  if(mode==="login"){
+    result=await window.sb.auth.signInWithPassword({
+      email:email,
+      password:password
+    });
+  }else{
+    result=await window.sb.auth.signUp({
+      email:email,
+      password:password
+    });
+  }
+
+  if(result.error){
+    alert("Có lỗi: "+result.error.message);
+    return;
+  }
+
+  if(mode==="login"){
+   alert("UID đăng nhập: " + result.data.user.id);
+    alert("Đăng nhập thành công!");
+    closeAuth();
+    openTab("profile");
+  }else{
+    alert("Đăng ký thành công! Hãy kiểm tra email để xác nhận nếu được yêu cầu.");
+    closeAuth();
+  }
+}
+
+ // CẤU HÌNH THANH TOÁN PDM GAMING
+const BANK_ID = "MB";
+const BANK_ACCOUNT = "08123456777777";
+const BANK_NAME = "NGO TAN PHAT";
+
+const money=n=>n.toLocaleString("vi-VN")+" VNĐ";
+
+function renderProducts(){
+ const q=document.getElementById("search").value.toLowerCase();
+ const list=data.filter(p=>(selected==="Tất cả"||p.game===selected)&&(p.name+p.game).toLowerCase().includes(q));
+ document.getElementById("products").innerHTML=list.map(p=>`
+ <article class="product">
+<div class="thumb ${p.color}">${p.image ? '<img src="' + p.image + '" alt="' + p.name + '" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;">' : p.game + '<br>PDM GAMING'}</div>
+  <div class="info">
+   <b>${p.name}</b>
+   <div class="price">${money(p.price)}</div>
+   <div class="old">${money(p.old)}</div>
+   <button class="buy" onclick="showProduct(${data.indexOf(p)})">Xem tài khoản →</button>
+  </div>
+ </article>`).join("")||"<p>Không tìm thấy tài khoản.</p>";
+}
+function showProduct(index){
+  const p=data[index];
+  if(!p)return;
+
+  const old=document.getElementById("productDetail");
+  if(old)old.remove();
+
+  const box=document.createElement("div");
+  box.id="productDetail";
+  box.style.cssText="position:fixed;inset:0;background:#000b;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px";
+
+  box.innerHTML=`
+    <div style="background:white;color:#222;padding:20px;border-radius:18px;width:100%;max-width:450px;max-height:85vh;overflow:auto">
+      <button onclick="document.getElementById('productDetail').remove()">✕ Đóng</button>
+      <img src="${p.image||''}" style="width:100%;border-radius:12px;margin-top:15px">
+      <h2>${escapeHTML(p.name)}</h2>
+      <h2 style="color:#ed286b">${money(p.price)}</h2>
+      <p>Game: ${escapeHTML(p.game||'')}</p>
+      <p>${escapeHTML(p.description||'Chưa có mô tả')}</p>
+    <button onclick="startPayment(${index})" style="width:100%;padding:15px;background:#ed286b;color:white;border:0;border-radius:10px;font-weight:bold;margin-top:15px">🛒 MUA NGAY</button>
+    </div>
+  `;
+
+  document.body.appendChild(box);
+}
+ async function startPayment(index){
+  const p=data[index];
+  if(!p)return;
+const amount=Math.round(Number(p.price));
+const note="PDM"+Date.now().toString().slice(-8);
+
+const {data:{user}} = await sb.auth.getUser();
+
+if(!user){
+  alert("Vui lòng đăng nhập trước khi mua hàng!");
+  return;
+}
+
+const {error} = await sb
+  .from("orders")
+  .insert({
+    product_name:p.name,
+    game:p.game || "",
+    amount:amount,
+    transfer_note:note,
+    status:"pending",
+    buyer_id:user.id,
+    buyer_name:user.email || "Khách hàng",
+    product_id:p.id || null,
+    seller_id:p.seller_id || null
+  });
+
+if(error){
+  alert("Không tạo được đơn hàng: "+error.message);
+  return;
+}
+
+  const qr="https://img.vietqr.io/image/"+BANK_ID+"-"+BANK_ACCOUNT+"-compact2.png?amount="+amount+"&addInfo="+encodeURIComponent(note)+"&accountName="+encodeURIComponent(BANK_NAME);
+
+  const old=document.getElementById("paymentBox");
+  if(old)old.remove();
+
+  const box=document.createElement("div");
+  box.id="paymentBox";
+  box.style.cssText="position:fixed;inset:0;background:#0009;z-index:99999;display:grid;place-items:center;padding:15px";
+  box.innerHTML=`
+    <div style="background:white;color:#222;padding:20px;border-radius:15px;width:100%;max-width:380px;text-align:center">
+      <h2>Thanh toán PDM GAMING</h2>
+      <p>Sản phẩm: ${escapeHTML(p.name)}</p>
+      <h2 style="color:#ed286b">${money(amount)}</h2>
+      <img src="${qr}" style="width:230px;max-width:100%">
+      <p>Ngân hàng: MB Bank</p>
+      <p>Chủ tài khoản: ${escapeHTML(BANK_NAME)}</p>
+      <p>Số tài khoản: ${escapeHTML(BANK_ACCOUNT)}</p>
+      <p>Nội dung: <b>${note}</b></p>
+      <p>Vui lòng chuyển đúng số tiền và nội dung.</p>
+      <button onclick="document.getElementById('paymentBox').remove()">Đóng</button>
+   <hr>
+<p><b>Gửi ảnh xác nhận chuyển khoản</b></p>
+<input id="paymentProofFile" type="file" accept="image/*">
+<button onclick="submitPaymentProof('${note}')">
+  Gửi ảnh xác nhận
+</button>
+    </div>`;
+  document.body.appendChild(box);
+}
+ async function submitPaymentProof(note){
+  const {data:{user}} = await sb.auth.getUser();
+
+  if(!user){
+    alert("Vui lòng đăng nhập trước!");
+    return;
+  }
+
+  const input = document.getElementById("paymentProofFile");
+  const file = input.files[0];
+
+  if(!file){
+    alert("Bạn chưa chọn ảnh chuyển khoản!");
+    return;
+  }
+
+  if(!file.type.startsWith("image/")){
+    alert("Vui lòng chọn file hình ảnh!");
+    return;
+  }
+
+  if(file.size > 5 * 1024 * 1024){
+    alert("Ảnh không được vượt quá 5MB!");
+    return;
+  }
+
+  const ext = file.name.split(".").pop().toLowerCase();
+  const path = user.id + "/" + note + "." + ext;
+
+  const {error:uploadError} = await sb.storage
+    .from("payment-proofs")
+    .upload(path, file, {upsert:true});
+
+  if(uploadError){
+    alert("Lỗi tải ảnh: " + uploadError.message);
+    return;
+  }
+
+  const {error:updateError} = await sb
+    .from("orders")
+    .update({
+      payment_proof_path:path,
+      proof_submitted_at:new Date().toISOString()
+    })
+    .eq("transfer_note", note)
+    .eq("buyer_id", user.id)
+    .eq("status", "pending");
+
+  if(updateError){
+    alert("Lỗi lưu ảnh vào đơn hàng: " + updateError.message);
+    return;
+  }
+
+  alert("Đã gửi ảnh chuyển khoản. Vui lòng chờ quản trị viên xác nhận!");
+}
+ function chooseGame(g,el){
+  selected=g;
+  document.querySelectorAll(".category").forEach(b=>{
+    b.classList.remove("active");
+  });
+  el.classList.add("active");
+
+  document.getElementById("gameTitle").innerText =
+    g==="Tất cả" ? "🔥 Acc nổi bật" : "🎮 Acc game " + g;
+
+  renderProducts();
+  document.getElementById("products").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+}
+function openTab(id,btn){
+ document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".bottom button").forEach(x=>x.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ else document.querySelectorAll(".bottom button")[["shop","chat","find","profile","wallet"].indexOf(id)].classList.add("active");
+ window.scrollTo(0,0);
+ if(id==="wallet") loadWallet();
+}
+async function sendMessage(){
+  const input = document.getElementById("chattext");
+  const value = input.value.trim();
+
+  if(!value) return;
+
+  const { data: { user } } = await window.sb.auth.getUser();
+
+  if(!user){
+    alert("Vui lòng đăng nhập để chat!");
+    return;
+  }
+
+  const name = myProfile?.name || user.email || "Người chơi";
+
+  const { error } = await window.sb
+    .from("world_messages")
+    .insert({
+  user_id: user.id,
+  username: name,
+  message: value,
+  content: value
+});
+
+  if(error){
+    alert("Lỗi gửi tin nhắn: " + error.message);
+    return;
+  }
+
+  input.value = "";
+  await loadWorldMessages();
+}
+
+async function loadWorldMessages(){
+  const box = document.getElementById("chatbox");
+  if(!box) return;
+
+  const { data, error } = await window.sb
+    .from("world_messages")
+    .select("*")
+    .order("created_at", { ascending: true })
+    .limit(100);
+
+  if(error){
+    console.error("Lỗi tải chat:", error.message);
+    return;
+  }
+
+  box.innerHTML = "";
+
+  (data || []).forEach(item => {
+    const msg = document.createElement("div");
+    msg.className = "message";
+
+    const name = document.createElement("b");
+    name.textContent = item.username || "Người chơi";
+
+    const content = document.createElement("div");
+    content.textContent = item.message || "";
+
+    msg.append(name, content);
+    box.appendChild(msg);
+  });
+
+  box.scrollTop = box.scrollHeight;
+}
+ let worldChatChannel = null;
+
+function subscribeWorldChat(){
+  if(worldChatChannel) return;
+
+  worldChatChannel = window.sb
+    .channel("pdm-global-chat")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "world_messages"
+      },
+      () => {
+        loadWorldMessages();
+      }
+    )
+    .subscribe();
+}
+ async function saveProfile(){
+  const { data: { user }, error: userError } = await sb.auth.getUser();
+
+  if(userError || !user){
+    alert("Bạn cần đăng nhập trước khi lưu hồ sơ.");
+    return;
+  }
+
+  const name = document.getElementById("pname").value.trim();
+  const birth = Number(document.getElementById("birth").value);
+
+  if(!name){
+    alert("Vui lòng nhập tên hiển thị.");
+    return;
+  }
+
+  if(birth && (birth < 1900 || birth > new Date().getFullYear())){
+    alert("Năm sinh không hợp lệ.");
+    return;
+  }
+
+  const avatarFile = document.getElementById("avatarFile").files[0];
+let avatarUrl = null;
+
+if (avatarFile) {
+  if (!avatarFile.type.startsWith("image/")) {
+    alert("Vui lòng chọn file ảnh!");
+    return;
+  }
+
+  if (avatarFile.size > 3 * 3024 * 4032) {
+    alert("Ảnh không được lớn hơn 3MB!");
+    return;
+  }
+
+  const ext = avatarFile.name.split(".").pop();
+  const filePath = `avatars/${user.id}/${Date.now()}.${ext}`;
+
+  const { error: uploadError } = await sb.storage
+    .from("product-images")
+    .upload(filePath, avatarFile, { upsert: true });
+
+  if (uploadError) {
+    alert("Tải ảnh thất bại: " + uploadError.message);
+    return;
+  }
+
+  const { data: publicData } = sb.storage
+    .from("product-images")
+    .getPublicUrl(filePath);
+
+  avatarUrl = publicData.publicUrl;
+}
+ const gender = document.getElementById("gender").value;
+  const city = document.getElementById("city").value;
+  const game = document.getElementById("game").value;
+  const rank = document.getElementById("prank").value;
+  const gameid = document.getElementById("gameid").value;
+  const mic = document.getElementById("mic").value;
+
+  const profile = {
+    name,
+    gender,
+    birth: birth || "",
+    city,
+    game,
+    rank,
+    gameid,
+    mic,
+avatar_url: avatarUrl || myProfile?.avatar_url || null
+};
+
+  const { error } = await sb.from("profiles").upsert({
+    auth_user_id: user.id,
+    username: name,
+    gender: gender,
+    birth_year: birth || null,
+    location: city,
+    favorite_game: game,
+    has_mic: mic === "Có mic",
+    rank: rank,
+    game_id: gameid,
+avatar_url: avatarUrl || myProfile?.avatar_url || null
+  }, { onConflict: "auth_user_id" });
+
+  if(error){
+    alert("Không lưu được hồ sơ: " + error.message);
+    return;
+  }
+
+  myProfile = profile;
+  localStorage.setItem("pdmProfile", JSON.stringify(profile));
+
+  document.getElementById("profileview").innerHTML = `
+    ${profile.avatar_url
+  ? `<img src="${escapeHTML(profile.avatar_url)}" alt="Ảnh đại diện" style="width:90px;height:90px;border-radius:50%;object-fit:cover">`
+  : `<div style="font-size:50px">👤</div>`}
+<h3>${escapeHTML(name)}</h3>
+    <p>Giới tính: ${escapeHTML(gender || "Chưa cung cấp")}</p>
+    <p>Năm sinh: ${birth || "Chưa cung cấp"}</p>
+    <p>Địa điểm: ${escapeHTML(city || "Chưa cung cấp")}</p>
+    <p>Game: ${escapeHTML(game)}</p>
+    <p>Rank: ${escapeHTML(rank || "Chưa cung cấp")}</p>
+    <p>ID game: ${escapeHTML(gameid || "Chưa cung cấp")}</p>
+    <p>🎙️ ${escapeHTML(mic)}</p>
+  `;
+
+  alert("Đã lưu hồ sơ vào tài khoản PDM GAMING!");
+}
+
+function escapeHTML(s){
+ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function findPlayers(){
+ const game=document.getElementById("findgame").value;
+ const city=document.getElementById("findcity").value.trim().toLowerCase();
+ const rank=document.getElementById("rank").value.trim().toLowerCase();
+ const list=profiles.filter(p=>p.game===game&&(!city||p.city.toLowerCase().includes(city))&&(!rank||p.rank.toLowerCase().includes(rank)));
+ const box=document.getElementById("players");
+ if(!list.length){
+  box.innerHTML="<h3>👥 Kết quả</h3><p>Chưa có game thủ phù hợp. Hãy tạo hồ sơ và thử lại sau.</p>";
+  return;
+ }
+ box.innerHTML="<h3>👥 Kết quả tìm kiếm</h3>"+list.map(p=>`
+ <div class="card player">
+  <div class="avatar">🎮</div>
+  <div class="playerinfo">
+   <b>${escapeHTML(p.name)}</b><br>
+   <span class="muted">${escapeHTML(p.game)} • ${escapeHTML(p.city)}</span><br>
+   <span class="tag">${escapeHTML(p.rank||"Chưa có rank")}</span>
+   <span class="tag">${escapeHTML(p.mic)}</span>
+  </div>
+ </div>`).join("");
+}
+const saved=localStorage.getItem("pdmProfile");
+if(saved){
+ try{
+  myProfile=JSON.parse(saved);
+  document.getElementById("pname").value=myProfile.name||"";
+  document.getElementById("gender").value=myProfile.gender||"";
+  document.getElementById("birth").value=myProfile.birth||"";
+  document.getElementById("city").value=myProfile.city||"";
+  document.getElementById("game").value=myProfile.game||"Liên Quân";
+  document.getElementById("prank").value=myProfile.rank||"";
+  document.getElementById("gameid").value=myProfile.gameid||"";
+  document.getElementById("mic").value=myProfile.mic||"Có mic";
+ }catch(e){}
+}
+renderProducts();
+
+</script>
+
+<!-- KET NOI SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://egkvdhjgoadkelldhwpa.supabase.co";
+const SUPABASE_KEY = "sb_publishable_V_E2ZswsVGezddvfUtfA0g_Ub0WSb1p";
+
+window.sb = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+window.sb.auth.onAuthStateChange(() => {
+  updateAuthButtons();
+});
+
+async function updateAuthButtons(){
+  const { data: { session } } = await window.sb.auth.getSession();
+
+  const loginBtn = document.getElementById("loginBtn");
+  const registerBtn = document.getElementById("registerBtn");
+  const accountBtn = document.getElementById("accountBtn");
+
+  loginBtn.style.display = session ? "none" : "";
+  registerBtn.style.display = session ? "none" : "";
+  accountBtn.style.display = session ? "" : "none";
+
+  if(session){
+    accountBtn.textContent = "👤 Tài khoản";
+accountBtn.onclick = toggleAccountMenu;
+  }
+}
+
+async function logoutAuth(){
+  const { error } = await window.sb.auth.signOut();
+
+  if(error){
+    alert("Đăng xuất thất bại: " + error.message);
+    return;
+  }
+
+  await updateAuthButtons();
+  alert("Bạn đã đăng xuất!");
+}
+
+function toggleAccountMenu(){
+  const oldMenu = document.getElementById("accountMenu");
+
+  if(oldMenu){
+    oldMenu.remove();
+    return;
+  }
+
+  const menu = document.createElement("div");
+  menu.id = "accountMenu";
+
+  menu.style.cssText =
+    "position:fixed;top:90px;right:20px;z-index:99999;" +
+    "background:white;padding:16px;border-radius:12px;" +
+    "box-shadow:0 4px 20px #0003;display:flex;" +
+    "flex-direction:column;gap:12px;min-width:180px;";
+
+  menu.innerHTML = `
+    <button onclick="openTab('profile')">👤 Hồ sơ của tôi</button>
+    <button onclick="adminOrders()">🛠 Quản trị đơn hàng</button>
+     <button onclick="adminWalletTopups()">💳 Quản lý nạp ví</button>
+    <button onclick="logoutAuth()">🚪 Đăng xuất</button>
+  `;
+
+  document.body.appendChild(menu);
+}
+ console.log("PDM-GAMING da ket noi Supabase");
+async function loadProducts(){
+  const {data: products, error} = await window.sb
+    .from("products")
+    .select("*")
+    .order("created_at", {ascending:false});
+
+  if(error){
+    console.error("Lỗi tải sản phẩm:",error);
+    return;
+  }
+
+  data = products.map(p => ({
+    name: p.title,
+    game: p.game,
+    price: Number(p.price) || 0,
+    old: 0,
+    color: "pink",
+    description: p.description,
+    image: p.image_url,
+  }));
+
+  renderProducts();
+}
+
+async function adminOrders(){
+  const {data:{session}} = await window.sb.auth.getSession();
+
+  if(!session){
+    alert("Vui lòng đăng nhập!");
+    return;
+  }
+
+  const {data:isAdmin,error:adminError} =
+    await window.sb.rpc("is_admin");
+
+  if(adminError || !isAdmin){
+    alert("Bạn không có quyền quản trị!");
+    return;
+  }
+
+  const {data:orders,error} = await window.sb
+    .from("orders")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    alert("Lỗi tải đơn hàng: "+error.message);
+    return;
+  }
+
+  const old = document.getElementById("adminOrdersBox");
+  if(old) old.remove();
+
+  const box = document.createElement("div");
+  box.id = "adminOrdersBox";
+  box.style.cssText =
+    "position:fixed;inset:0;z-index:99999;background:#111;color:white;padding:20px;overflow:auto";
+
+  box.innerHTML = `
+    <h2>QUẢN TRỊ ĐƠN HÀNG</h2>
+    <button onclick="document.getElementById('adminOrdersBox').remove()">Đóng</button>
+   <button onclick="adminProducts()" style="padding:12px;margin:10px 0;width:100%">
+  🛒 Quản lý sản phẩm
+</button>
+    <h3>Tổng đơn: ${orders.length}</h3>
+    ${orders.map(o=>`
+      <div style="background:#252525;padding:15px;margin:12px 0;border-radius:10px">
+        <b>${escapeHTML(o.product_name||"Sản phẩm")}</b>
+        <p>Game: ${escapeHTML(o.game||"")}</p>
+        <p>Khách hàng: ${escapeHTML(o.buyer_name||"")}</p>
+        <p>Số tiền: ${money(o.amount)}</p>
+        <p>Mã chuyển khoản: ${escapeHTML(o.transfer_note||"")}</p>
+        <p>Trạng thái: ${escapeHTML(o.status||"")}</p>
+        <button onclick="updateOrderStatus('${o.id}','paid')">
+          Xác nhận đã nhận tiền
+        </button>
+        <button onclick="updateOrderStatus('${o.id}','completed')">
+          Xác nhận đã giao
+        </button>
+      </div>
+    `).join("")}
+  `;
+
+  document.body.appendChild(box);
+}
+
+async function updateOrderStatus(id,status){
+  const {error} = await window.sb
+    .from("orders")
+    .update({status:status})
+    .eq("id",id);
+
+  if(error){
+    alert("Cập nhật thất bại: "+error.message);
+    return;
+  }
+
+  alert("Đã cập nhật đơn hàng!");
+  adminOrders();
+}
+
+loadProducts();
+ 
+async function adminProducts(){
+  const {data:isAdmin,error:adminError}=await window.sb.rpc("is_admin");
+
+  if(adminError || !isAdmin){
+    alert("Bạn không có quyền quản trị!");
+    return;
+  }
+
+  const old=document.getElementById("adminProductsBox");
+  if(old) old.remove();
+
+  const box=document.createElement("div");
+  box.id="adminProductsBox";
+  box.style.cssText="position:fixed;inset:0;z-index:100000;background:#111;color:white;padding:20px;overflow:auto;font-family:Arial";
+
+  box.innerHTML=`
+    <h2>QUẢN LÝ SẢN PHẨM</h2>
+    <button onclick="document.getElementById('adminProductsBox').remove()">Đóng</button>
+
+    <div style="background:#252525;padding:15px;border-radius:12px;margin-top:15px">
+      <h3 id="productFormTitle">Thêm acc game mới</h3>
+
+      <input id="adminProductId" type="hidden">
+
+      <p>Tên sản phẩm</p>
+      <input id="adminProductName" placeholder="Tên acc game" style="width:100%;padding:12px">
+
+      <p>Game</p>
+      <select id="adminProductGame" style="width:100%;padding:12px">
+        <option>Liên Quân</option>
+        <option>Free Fire</option>
+        <option>Roblox</option>
+      </select>
+
+      <p>Giá bán (VNĐ)</p>
+      <input id="adminProductPrice" type="number" placeholder="500000" style="width:100%;padding:12px">
+
+      <p>Mô tả</p>
+      <textarea id="adminProductDescription" placeholder="Mô tả tài khoản" style="width:100%;padding:12px"></textarea>
+
+      <p>Ảnh sản phẩm</p>
+      <input id="adminProductImage" type="file" accept="image/*">
+
+      <p>
+        <button onclick="saveAdminProduct()" style="padding:12px;width:100%;background:#e52d70;color:white">
+          Lưu sản phẩm
+        </button>
+      </p>
+      <button onclick="resetAdminProductForm()">Làm mới biểu mẫu</button>
+    </div>
+
+    <h3>Danh sách sản phẩm</h3>
+    <div id="adminProductList">Đang tải...</div>
+  `;
+
+  document.body.appendChild(box);
+  await renderAdminProducts();
+}
+
+async function renderAdminProducts(){
+  const area=document.getElementById("adminProductList");
+  if(!area) return;
+
+  const {data:products,error}=await window.sb
+    .from("products")
+    .select("*")
+    .order("created_at",{ascending:false});
+
+  if(error){
+    area.innerHTML="Lỗi tải sản phẩm: "+escapeHTML(error.message);
+    return;
+  }
+
+  if(!products || !products.length){
+    area.innerHTML="Chưa có sản phẩm.";
+    return;
+  }
+
+  area.innerHTML=products.map(p=>`
+    <div style="background:#252525;padding:15px;margin:12px 0;border-radius:12px">
+      ${p.image_url ? `<img src="${escapeHTML(p.image_url)}" style="width:100%;max-height:160px;object-fit:contain">` : ""}
+      <h3>${escapeHTML(p.title || "")}</h3>
+      <p>${escapeHTML(p.game || "")}</p>
+      <p>${money(p.price)}</p>
+      <p>${escapeHTML(p.description || "")}</p>
+      <button onclick="editAdminProduct('${p.id}')">✏️ Sửa</button>
+      <button onclick="deleteAdminProduct('${p.id}')">🗑️ Xóa</button>
+    </div>
+  `).join("");
+}
+
+function resetAdminProductForm(){
+  document.getElementById("adminProductId").value="";
+  document.getElementById("adminProductName").value="";
+  document.getElementById("adminProductGame").value="Liên Quân";
+  document.getElementById("adminProductPrice").value="";
+  document.getElementById("adminProductDescription").value="";
+  document.getElementById("adminProductImage").value="";
+  document.getElementById("productFormTitle").textContent="Thêm acc game mới";
+}
+
+async function editAdminProduct(id){
+  const {data:p,error}=await window.sb
+    .from("products").select("*").eq("id",id).single();
+
+  if(error){
+    alert(error.message);
+    return;
+  }
+
+  document.getElementById("adminProductId").value=p.id;
+  document.getElementById("adminProductName").value=p.title || "";
+  document.getElementById("adminProductGame").value=p.game || "Liên Quân";
+  document.getElementById("adminProductPrice").value=p.price || "";
+  document.getElementById("adminProductDescription").value=p.description || "";
+  document.getElementById("adminProductImage").value="";
+  document.getElementById("productFormTitle").textContent="Sửa sản phẩm";
+  document.getElementById("adminProductsBox").scrollTo({top:0,behavior:"smooth"});
+}
+
+async function saveAdminProduct(){
+  const id=document.getElementById("adminProductId").value;
+  const title=document.getElementById("adminProductName").value.trim();
+  const game=document.getElementById("adminProductGame").value;
+  const price=Number(document.getElementById("adminProductPrice").value);
+  const description=document.getElementById("adminProductDescription").value.trim();
+  const file=document.getElementById("adminProductImage").files[0];
+
+  if(!title || !price || price<=0){
+    alert("Vui lòng nhập tên và giá hợp lệ!");
+    return;
+  }
+
+  const {data:isAdmin,error:adminError}=await window.sb.rpc("is_admin");
+  if(adminError || !isAdmin){
+    alert("Không có quyền quản trị!");
+    return;
+  }
+
+  let image_url=null;
+
+  if(file){
+    if(!file.type.startsWith("image/")){
+      alert("Vui lòng chọn file ảnh!");
+      return;
+    }
+
+    const safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
+    const path=Date.now()+"-"+safeName;
+
+    const {error:uploadError}=await window.sb.storage
+  .from("product-images")
+  .upload(path,file);
+
+    if(uploadError){
+      alert("Lỗi tải ảnh: "+uploadError.message);
+      return;
+    }
+
+    const {data:urlData}=window.sb.storage
+      .from("product-images")
+      .getPublicUrl(path);
+
+    image_url=urlData.publicUrl;
+  }
+
+  const product={
+    title,
+    game,
+    price,
+    description
+  };
+
+  if(image_url) product.image_url=image_url;
+
+  let result;
+
+  if(id){
+    result=await window.sb.from("products").update(product).eq("id",id);
+  }else{
+    if(!image_url){
+      alert("Vui lòng chọn ảnh sản phẩm!");
+      return;
+    }
+    product.image_url=image_url;
+    result=await window.sb.from("products").insert(product);
+  }
+
+  if(result.error){
+    alert("Lỗi lưu sản phẩm: "+result.error.message);
+    return;
+  }
+
+  alert("Đã lưu sản phẩm!");
+  resetAdminProductForm();
+  await renderAdminProducts();
+  await loadProducts();
+}
+
+async function deleteAdminProduct(id){
+  if(!confirm("Bạn chắc chắn muốn xóa sản phẩm này?")) return;
+
+  const {data:isAdmin,error:adminError}=await window.sb.rpc("is_admin");
+  if(adminError || !isAdmin){
+    alert("Không có quyền quản trị!");
+    return;
+  }
+
+  const {error}=await window.sb.from("products").delete().eq("id",id);
+
+  if(error){
+    alert("Lỗi xóa: "+error.message);
+    return;
+  }
+
+  alert("Đã xóa sản phẩm!");
+  await renderAdminProducts();
+  await loadProducts();
+}
+
+// ===== VI PDM GAMING: NAP TIEN =====
+const formatVND = n => Number(n || 0).toLocaleString("vi-VN") + " VNĐ";
+async function loadWallet(){
+ const {data:{user}}=await window.sb.auth.getUser(); const b=document.getElementById("walletBalance"),h=document.getElementById("walletHistory");
+ if(!user){if(b)b.textContent="Đăng nhập để xem ví";if(h)h.textContent="Vui lòng đăng nhập.";return;}
+ const {data:w,error}=await window.sb.from("wallet_balances").select("balance").eq("user_id",user.id).maybeSingle();
+ if(b)b.textContent=error?"Chưa tải được số dư":formatVND(w?.balance||0);
+ const {data:rows,error:e}=await window.sb.from("wallet_topups").select("id,amount,transfer_note,status,created_at").eq("user_id",user.id).order("created_at",{ascending:false}).limit(20);
+ if(h)h.innerHTML=e?"Lỗi tải lịch sử: "+escapeHTML(e.message):(rows||[]).map(r=>`<div style="padding:10px 0;border-bottom:1px solid #44345c"><b>${formatVND(r.amount)}</b><div class="muted">Mã: ${escapeHTML(r.transfer_note)}</div><div class="muted">${r.status==="approved"?"Đã cộng tiền":r.status==="rejected"?"Từ chối":"Chờ xác nhận"}</div></div>`).join("")||"Chưa có giao dịch nạp.";
+}
+async function createWalletTopup(){
+ const {data:{user}}=await window.sb.auth.getUser();if(!user){alert("Vui lòng đăng nhập trước.");return;}
+ const amount=Number(document.getElementById("topupAmount").value);if(!Number.isSafeInteger(amount)||amount<10000||amount%10000){alert("Số tiền phải từ 10.000 VNĐ và theo bội số 10.000 VNĐ.");return;}
+ const note="NAP"+Date.now().toString().slice(-9);const {error}=await window.sb.from("wallet_topups").insert({user_id:user.id,amount,transfer_note:note,status:"pending"});if(error){alert("Không tạo được yêu cầu: "+error.message);return;}
+ const qr="https://img.vietqr.io/image/"+BANK_ID+"-"+BANK_ACCOUNT+"-compact2.png?amount="+amount+"&addInfo="+encodeURIComponent(note)+"&accountName="+encodeURIComponent(BANK_NAME);
+ const box=document.createElement("div");box.id="walletTopupBox";box.style.cssText="position:fixed;inset:0;background:#000c;z-index:100001;display:grid;place-items:center;padding:15px;overflow:auto";
+ box.innerHTML=`<div style="background:#171528;color:white;padding:20px;border-radius:16px;width:100%;max-width:390px;text-align:center"><h2>Yêu cầu nạp ví</h2><h2 style="color:#ff5eb5">${formatVND(amount)}</h2><img src="${qr}" style="width:230px;max-width:100%;background:white;border-radius:8px"><p>MB Bank</p><p>Chủ tài khoản: ${escapeHTML(BANK_NAME)}</p><p>Số tài khoản: ${escapeHTML(BANK_ACCOUNT)}</p><p>Nội dung: <b>${escapeHTML(note)}</b></p><label>Ảnh xác nhận chuyển khoản</label><input id="walletProofFile" type="file" accept="image/*" style="width:100%;margin:12px 0"><button class="wallet-action" onclick="submitWalletProof('${note}')">Gửi ảnh xác nhận</button><button onclick="document.getElementById('walletTopupBox').remove()" style="margin-top:10px;padding:10px">Đóng</button></div>`;document.body.appendChild(box);await loadWallet();
+}
+async function submitWalletProof(note){
+ const {data:{user}}=await window.sb.auth.getUser();if(!user){alert("Vui lòng đăng nhập lại.");return;}const file=document.getElementById("walletProofFile")?.files?.[0];if(!file){alert("Bạn chưa chọn ảnh chuyển khoản.");return;}if(!file.type.startsWith("image/")||file.size>5*1024*1024){alert("Chọn ảnh hợp lệ, tối đa 5MB.");return;}
+ const ext=(file.name.split(".").pop()||"jpg").toLowerCase().replace(/[^a-z0-9]/g,"");const path=user.id+"/wallet-"+note+"."+ext;const {error:up}=await window.sb.storage.from("payment-proofs").upload(path,file);if(up){alert("Lỗi tải ảnh: "+up.message);return;}
+ const {error}=await window.sb.rpc("submit_wallet_topup_proof",{p_transfer_note:note,p_path:path});if(error){alert("Lỗi lưu ảnh: "+error.message);return;}alert("Đã gửi ảnh. Chờ quản trị viên xác nhận.");document.getElementById("walletTopupBox")?.remove();loadWallet();
+}
+async function adminWalletTopups(){
+ const {data:ok,error:ae}=await window.sb.rpc("is_admin");if(ae||!ok){alert("Bạn không có quyền quản trị.");return;}const {data:rows,error}=await window.sb.from("wallet_topups").select("*").order("created_at",{ascending:false}).limit(100);if(error){alert(error.message);return;}
+ document.getElementById("adminWalletBox")?.remove();const box=document.createElement("div");box.id="adminWalletBox";box.style.cssText="position:fixed;inset:0;z-index:100002;background:#111;color:white;padding:18px;overflow:auto";box.innerHTML=`<h2>QUẢN LÝ NẠP VÍ</h2><button onclick="document.getElementById('adminWalletBox').remove()">Đóng</button>${(rows||[]).map(r=>`<div style="background:#252535;padding:14px;margin:12px 0;border-radius:12px"><b>${formatVND(r.amount)}</b><p>User: ${escapeHTML(r.user_id)}</p><p>Mã: ${escapeHTML(r.transfer_note)}</p><p>Trạng thái: ${escapeHTML(r.status)}</p>${r.payment_proof_path?`<button onclick="viewWalletProof('${escapeHTML(r.payment_proof_path)}')">Xem ảnh chuyển khoản</button>`:"<p>Chưa có ảnh xác nhận</p>"}${r.status==="pending"?`<button onclick="reviewWalletTopup('${r.id}','approve')">Xác nhận đã nhận tiền</button> <button onclick="reviewWalletTopup('${r.id}','reject')">Từ chối</button>`:""}</div>`).join("")||"<p>Chưa có yêu cầu nạp.</p>"}`;document.body.appendChild(box);
+}
+async function viewWalletProof(path){const {data,error}=await window.sb.storage.from("payment-proofs").createSignedUrl(path,300);if(error){alert(error.message);return;}window.open(data.signedUrl,"_blank");}
+async function reviewWalletTopup(id,action){const fn=action==="approve"?"admin_approve_wallet_topup":"admin_reject_wallet_topup";const {error}=await window.sb.rpc(fn,{p_topup_id:id});if(error){alert("Không xử lý được: "+error.message);return;}alert(action==="approve"?"Đã cộng tiền vào ví.":"Đã từ chối yêu cầu.");adminWalletTopups();}
+</script>
+
+
+<script>
+// ===== PDM GAMING - TÍNH NĂNG TÀI KHOẢN & QUẢN TRỊ (BẢN TÍCH HỢP) =====
+const pdmCartKey = 'pdm_cart_v2';
+const pdmCartRead = () => { try{return JSON.parse(localStorage.getItem(pdmCartKey)||'[]')}catch(e){return[]} };
+const pdmCartWrite = items => localStorage.setItem(pdmCartKey,JSON.stringify(items));
+const pdmVnd = n => Number(n||0).toLocaleString('vi-VN')+' VNĐ';
+const pdmText = v => escapeHTML(v==null?'':String(v));
+
+function openTab(id,btn){
+  const panel=document.getElementById(id);
+  if(!panel){console.warn('Thiếu mục:',id);return;}
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  panel.classList.add('active');
+  document.querySelectorAll('.bottom button').forEach(x=>x.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else {
+    const accountPages=['profile','wallet','notifications','withdraw','history','sold','cart','seller','random'];
+    const tabKey=accountPages.includes(id)?'account':id;
+    const ids=['shop','chat','find','account','support'];
+    const i=ids.indexOf(tabKey); if(i>=0) document.querySelectorAll('.bottom button')[i]?.classList.add('active');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+  const loaders={wallet:loadWallet,notifications:loadNotifications,withdraw:loadWithdrawals,history:loadAccountHistory,sold:loadSoldHistory,cart:renderCart,seller:loadSellerArea,support:loadMySupportTickets};
+  if(loaders[id]) loaders[id]();
+  if(id==='account') refreshAdminVisibility();
+}
+function toggleAccountMenu(){openTab('account');}
+
+// Hồ sơ: bổ sung Facebook, Zalo và thông tin liên lạc.
+async function saveProfile(){
+  const {data:{user},error:userError}=await window.sb.auth.getUser();
+  if(userError||!user){alert('Bạn cần đăng nhập trước khi lưu hồ sơ.');return;}
+  const name=document.getElementById('pname').value.trim();
+  const birth=Number(document.getElementById('birth').value);
+  if(!name){alert('Vui lòng nhập tên hiển thị.');return;}
+  if(birth&&(birth<1900||birth>new Date().getFullYear())){alert('Năm sinh không hợp lệ.');return;}
+  const avatarFile=document.getElementById('avatarFile').files[0];let avatarUrl=myProfile?.avatar_url||null;
+  if(avatarFile){
+    if(!avatarFile.type.startsWith('image/')||avatarFile.size>3*1024*1024){alert('Ảnh phải đúng định dạng và tối đa 3MB.');return;}
+    const ext=(avatarFile.name.split('.').pop()||'jpg').replace(/[^a-z0-9]/gi,'');
+    const path=`avatars/${user.id}/${Date.now()}.${ext}`;
+    const {error}=await window.sb.storage.from('product-images').upload(path,avatarFile,{upsert:true});
+    if(error){alert('Tải ảnh thất bại: '+error.message);return;}
+    avatarUrl=window.sb.storage.from('product-images').getPublicUrl(path).data.publicUrl;
+  }
+  const gender=document.getElementById('gender').value, city=document.getElementById('city').value.trim();
+  const game=document.getElementById('game').value, rank=document.getElementById('prank').value.trim();
+  const gameid=document.getElementById('gameid').value.trim(), mic=document.getElementById('mic').value;
+  const facebook=document.getElementById('facebookLink').value.trim(), zalo=document.getElementById('zaloContact').value.trim();
+  const phone=document.getElementById('contactPhone').value.trim(), email=document.getElementById('contactEmail').value.trim();
+  if(facebook && !/^https:\/\//i.test(facebook)){alert('Liên kết Facebook phải bắt đầu bằng https://');return;}
+  if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Email liên hệ không hợp lệ.');return;}
+  const profile={name,gender,birth:birth||'',city,game,rank,gameid,mic,avatar_url:avatarUrl,facebook_link:facebook,zalo_contact:zalo,contact_phone:phone,contact_email:email};
+  const payload={auth_user_id:user.id,username:name,gender,birth_year:birth||null,location:city,favorite_game:game,has_mic:mic==='Có mic',rank,game_id:gameid,avatar_url:avatarUrl,facebook_link:facebook,zalo_contact:zalo,contact_phone:phone,contact_email:email};
+  const {error}=await window.sb.from('profiles').upsert(payload,{onConflict:'auth_user_id'});
+  if(error){alert('Không lưu được hồ sơ: '+error.message+'\nHãy chạy file SQL cập nhật trước.');return;}
+  myProfile=profile;localStorage.setItem('pdmProfile',JSON.stringify(profile));renderMyProfile();alert('Đã cập nhật hồ sơ PDM GAMING!');
+}
+function renderMyProfile(){
+  if(!myProfile)return;const p=myProfile;const area=document.getElementById('profileview');if(!area)return;
+  area.innerHTML=`${p.avatar_url?`<img src="${pdmText(p.avatar_url)}" style="width:90px;height:90px;border-radius:50%;object-fit:cover">`:'<div style="font-size:50px">👤</div>'}
+  <h3>${pdmText(p.name)}</h3><p>Giới tính: ${pdmText(p.gender||'Chưa cung cấp')}</p><p>Năm sinh: ${p.birth||'Chưa cung cấp'}</p><p>Địa điểm: ${pdmText(p.city||'Chưa cung cấp')}</p><p>Game: ${pdmText(p.game||'')}</p><p>Rank: ${pdmText(p.rank||'Chưa cung cấp')}</p><p>ID game: ${pdmText(p.gameid||'Chưa cung cấp')}</p><p>Mic: ${pdmText(p.mic||'')}</p>
+  <p>Facebook: ${p.facebook_link?`<a href="${pdmText(p.facebook_link)}" target="_blank" rel="noopener">Mở Facebook</a>`:'Chưa cung cấp'}</p><p>Zalo: ${pdmText(p.zalo_contact||'Chưa cung cấp')}</p><p>Điện thoại: ${pdmText(p.contact_phone||'Chưa cung cấp')}</p><p>Email liên hệ: ${pdmText(p.contact_email||'Chưa cung cấp')}</p>`;
+}
+
+// Giỏ hàng được lưu trên thiết bị; thanh toán vẫn qua luồng đơn hàng hiện có.
+function addToCart(index){
+  const p=data[index];if(!p)return;const cart=pdmCartRead();
+  if(cart.some(x=>String(x.id)===String(p.id))){alert('Sản phẩm đã có trong giỏ hàng.');return;}
+  cart.push({id:p.id,name:p.name,game:p.game,price:p.price,image:p.image||'',description:p.description||'',seller_id:p.seller_id||null});pdmCartWrite(cart);alert('Đã thêm vào giỏ hàng!');renderCart();
+}
+function renderCart(){
+  const box=document.getElementById('cartItems');if(!box)return;const cart=pdmCartRead();
+  if(!cart.length){box.innerHTML='Chưa có sản phẩm trong giỏ.';return;}
+  box.innerHTML=cart.map((p,i)=>`<div class="cart-row"><b>${pdmText(p.name)}</b><p class="muted">${pdmText(p.game)} • ${pdmVnd(p.price)}</p><button class="btn" onclick="removeCartItem(${i})">Xóa</button><button class="btn" onclick="buyCartItem(${i})">Mua ngay</button></div>`).join('')+`<hr><b>Tổng tạm tính: ${pdmVnd(cart.reduce((a,p)=>a+Number(p.price||0),0))}</b>`;
+}
+function removeCartItem(i){const c=pdmCartRead();c.splice(i,1);pdmCartWrite(c);renderCart();}
+function buyCartItem(i){const p=pdmCartRead()[i];if(!p)return;const index=data.findIndex(x=>String(x.id)===String(p.id));if(index<0){alert('Sản phẩm không còn trong cửa hàng.');return;}startPayment(index);}
+function showProduct(index){
+  const p=data[index];if(!p)return;document.getElementById('productDetail')?.remove();
+  const box=document.createElement('div');box.id='productDetail';box.style.cssText='position:fixed;inset:0;background:#000c;z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px';
+  box.innerHTML=`<div style="background:#171528;color:white;padding:18px;border:1px solid #7544a8;border-radius:20px;width:100%;max-width:450px;max-height:88vh;overflow:auto"><button onclick="document.getElementById('productDetail').remove()">✕ Đóng</button>${p.image?`<img src="${pdmText(p.image)}" style="width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin-top:12px">`:''}<h2>${pdmText(p.name)}</h2><h2 style="color:#ff5eb5">${pdmVnd(p.price)}</h2><p>Game: ${pdmText(p.game)}</p><p>${pdmText(p.description||'Chưa có mô tả')}</p><button class="wallet-action" onclick="addToCart(${index})">🛒 Thêm vào giỏ hàng</button><button class="buy" style="width:100%;padding:13px;margin-top:9px" onclick="startPayment(${index})">MUA NGAY</button></div>`;
+  document.body.appendChild(box);
+}
+function renderProducts(){
+  const q=(document.getElementById('search')?.value||'').toLowerCase();const box=document.getElementById('products');if(!box)return;
+  const list=data.filter(p=>(selected==='Tất cả'||p.game===selected)&&(String(p.name)+String(p.game)).toLowerCase().includes(q));
+  box.innerHTML=list.map(p=>{const index=data.indexOf(p);return `<article class="product"><div class="thumb pink">${p.image?`<img src="${pdmText(p.image)}" alt="${pdmText(p.name)}" style="width:100%;height:100%;object-fit:cover">`:pdmText(p.game)+'<br>PDM GAMING'}</div><div class="info"><b>${pdmText(p.name)}</b><div class="price">${pdmVnd(p.price)}</div><button class="buy" onclick="showProduct(${index})">Xem tài khoản →</button></div></article>`}).join('')||'<p>Không tìm thấy tài khoản.</p>';
+}
+async function loadProducts(){
+  const {data:products,error}=await window.sb.from('products').select('*').order('created_at',{ascending:false});
+  if(error){console.error('Lỗi tải sản phẩm:',error.message);return;}
+  data=(products||[]).filter(p=>p.status!=='pending'&&p.status!=='rejected').map(p=>({id:p.id,name:p.title,game:p.game,price:Number(p.price)||0,old:0,color:'pink',description:p.description,image:p.image_url,seller_id:p.seller_id||null}));
+  renderProducts();
+}
+
+// Số dư và lịch sử ví.
+async function loadWallet(){
+  const {data:{user}}=await window.sb.auth.getUser();const bal=document.getElementById('walletBalance');const hist=document.getElementById('walletHistory');
+  if(!user){if(bal)bal.textContent='Đăng nhập để xem ví';if(hist)hist.textContent='Vui lòng đăng nhập.';return;}
+  const {data:w,error}=await window.sb.from('wallet_balances').select('balance').eq('user_id',user.id).maybeSingle();
+  if(bal)bal.textContent=error?'Chưa tải được':pdmVnd(w?.balance||0);
+  if(hist){const {data:rows,error:e}=await window.sb.from('wallet_topups').select('amount,transfer_note,status,created_at').eq('user_id',user.id).order('created_at',{ascending:false}).limit(25);
+    hist.innerHTML=e?'Không tải được lịch sử.':(rows||[]).map(r=>`<div class="history-row"><b>${pdmVnd(r.amount)}</b><div class="muted">${pdmText(r.transfer_note)} • ${r.status==='approved'?'Đã cộng':r.status==='rejected'?'Từ chối':'Chờ xác nhận'}</div></div>`).join('')||'Chưa có yêu cầu nạp.';}
+  await loadWithdrawals(false);
+}
+async function loadWithdrawals(refreshBalance=true){
+  const {data:{user}}=await window.sb.auth.getUser();if(!user)return;
+  if(refreshBalance){const {data:w}=await window.sb.from('wallet_balances').select('balance').eq('user_id',user.id).maybeSingle();const b=document.getElementById('withdrawBalance');if(b)b.textContent=pdmVnd(w?.balance||0);}
+  const box=document.getElementById('withdrawHistory');if(!box)return;
+  const {data:rows,error}=await window.sb.from('wallet_withdrawals').select('*').eq('user_id',user.id).order('created_at',{ascending:false}).limit(30);
+  box.innerHTML=error?'Không tải được lịch sử rút tiền.':(rows||[]).map(r=>`<div class="history-row"><b>${pdmVnd(r.amount)}</b><div class="muted">${pdmText(r.bank_name)} • ${pdmText(r.account_name)} • ${pdmText(r.status)}</div></div>`).join('')||'Chưa có yêu cầu rút.';
+}
+async function requestWithdrawal(){
+  const amount=Number(document.getElementById('withdrawAmount').value),bank=document.getElementById('withdrawBank').value.trim(),name=document.getElementById('withdrawName').value.trim(),account=document.getElementById('withdrawAccount').value.trim();
+  if(!Number.isSafeInteger(amount)||amount<10000||amount%10000!==0||!bank||!name||!account){alert('Nhập số tiền từ 10.000đ theo bội số 10.000đ và điền đầy đủ thông tin ngân hàng.');return;}
+  const {error}=await window.sb.rpc('request_wallet_withdrawal',{p_amount:amount,p_bank_name:bank,p_account_name:name,p_account_number:account});
+  if(error){alert('Không tạo được yêu cầu: '+error.message);return;}
+  alert('Đã gửi yêu cầu rút tiền. Số dư được tạm giữ trong lúc chờ duyệt.');document.getElementById('withdrawAmount').value='';await loadWithdrawals();await loadWallet();
+}
+async function loadAccountHistory(){
+  const {data:{user}}=await window.sb.auth.getUser();if(!user){return;}
+  const purchases=document.getElementById('purchaseHistory'),ledger=document.getElementById('ledgerHistory');
+  const {data:orders,error}=await window.sb.from('orders').select('id,product_name,amount,status,created_at').eq('buyer_id',user.id).order('created_at',{ascending:false}).limit(30);
+  if(purchases)purchases.innerHTML=error?'Không tải được đơn mua.':(orders||[]).map(o=>`<div class="history-row"><b>${pdmText(o.product_name)}</b><div>${pdmVnd(o.amount)} • ${pdmText(o.status)}</div></div>`).join('')||'Chưa có đơn mua.';
+  const [{data:items,error:e},{data:topups,error:te}]=await Promise.all([
+    window.sb.from('wallet_ledger').select('*').eq('user_id',user.id).order('created_at',{ascending:false}).limit(50),
+    window.sb.from('wallet_topups').select('amount,status,transfer_note,created_at').eq('user_id',user.id).order('created_at',{ascending:false}).limit(30)
+  ]);
+  const ledgerRows=[...(items||[]).map(x=>({label:x.description||x.tx_type,amount:x.amount,created_at:x.created_at})),...(topups||[]).map(x=>({label:'Nạp ví • '+(x.status==='approved'?'Đã cộng':x.status==='rejected'?'Từ chối':'Chờ xác nhận')+' • '+x.transfer_note,amount:x.amount,created_at:x.created_at}))].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+  if(ledger)ledger.innerHTML=(e&&te)?'Chưa tải được lịch sử ví.':ledgerRows.map(x=>`<div class="history-row"><b>${pdmText(x.label)}</b><div>${pdmVnd(Math.abs(x.amount))} • ${new Date(x.created_at).toLocaleString('vi-VN')}</div></div>`).join('')||'Chưa có giao dịch ví.';
+}
+async function loadSoldHistory(){
+  const {data:{user}}=await window.sb.auth.getUser();const box=document.getElementById('soldHistory');if(!box)return;if(!user){box.textContent='Vui lòng đăng nhập.';return;}
+  const {data:rows,error}=await window.sb.from('orders').select('id,product_name,amount,status,platform_fee,seller_amount,created_at').eq('seller_id',user.id).order('created_at',{ascending:false}).limit(50);
+  box.innerHTML=error?'Chưa tải được đơn đã bán.':(rows||[]).map(o=>`<div class="history-row"><b>${pdmText(o.product_name)}</b><div>Đơn: ${pdmText(o.status)} • Giá: ${pdmVnd(o.amount)}</div><div class="muted">Phí 5%: ${pdmVnd(o.platform_fee||0)} • Người bán nhận: ${pdmVnd(o.seller_amount||0)}</div></div>`).join('')||'Chưa có tài khoản đã bán.';
+}
+
+// Thông báo cá nhân và thông báo toàn trang.
+async function loadNotifications(){
+  const box=document.getElementById('notificationList');if(!box)return;const {data:{user}}=await window.sb.auth.getUser();if(!user){box.innerHTML='<div class="card">Vui lòng đăng nhập để xem thông báo cá nhân.</div>';return;}
+  const [a,n]=await Promise.all([
+    window.sb.from('site_announcements').select('*').eq('is_active',true).order('created_at',{ascending:false}).limit(20),
+    window.sb.from('user_notifications').select('*').eq('user_id',user.id).order('created_at',{ascending:false}).limit(30)
+  ]);
+  const rows=[...(a.data||[]).map(x=>({...x,source:'website'})),...(n.data||[]).map(x=>({...x,source:'account'}))].sort((x,y)=>new Date(y.created_at)-new Date(x.created_at));
+  box.innerHTML=rows.map(x=>`<div class="card"><span class="tag">${x.source==='website'?'PDM GAMING':'Tài khoản'}</span><h3>${pdmText(x.title)}</h3><p>${pdmText(x.message||x.body)}</p><small class="muted">${new Date(x.created_at).toLocaleString('vi-VN')}</small></div>`).join('')||'<div class="card">Chưa có thông báo mới.</div>';
+}
+async function loadMySupportTickets(){
+  const box=document.getElementById('mySupportTickets');if(!box)return;const {data:{user}}=await window.sb.auth.getUser();if(!user){box.textContent='Vui lòng đăng nhập.';return;}
+  const {data:rows,error}=await window.sb.from('support_tickets').select('*').eq('user_id',user.id).order('created_at',{ascending:false}).limit(20);
+  box.innerHTML=error?'Chưa tải được yêu cầu.':(rows||[]).map(r=>`<div class="history-row"><b>${pdmText(r.subject)}</b><p>${pdmText(r.message)}</p><small class="muted">${pdmText(r.status)} • ${new Date(r.created_at).toLocaleString('vi-VN')}</small>${r.admin_reply?`<p>Phản hồi: ${pdmText(r.admin_reply)}</p>`:''}</div>`).join('')||'Bạn chưa gửi yêu cầu nào.';
+}
+async function createSupportTicket(){
+  const {data:{user}}=await window.sb.auth.getUser();if(!user){alert('Vui lòng đăng nhập để gửi yêu cầu.');return;}
+  const subject=document.getElementById('supportSubject').value,message=document.getElementById('supportMessage').value.trim(),contact=document.getElementById('supportContact').value.trim();
+  if(message.length<10){alert('Nội dung hỗ trợ cần ít nhất 10 ký tự.');return;}
+  const {error}=await window.sb.from('support_tickets').insert({user_id:user.id,subject,message,contact,status:'open'});
+  if(error){alert('Gửi yêu cầu thất bại: '+error.message);return;}
+  document.getElementById('supportMessage').value='';alert('Đã gửi yêu cầu hỗ trợ!');loadMySupportTickets();
+}
+
+// Đăng ký người bán và gửi tin đăng chờ duyệt.
+async function loadSellerArea(){
+  const {data:{user}}=await window.sb.auth.getUser();const st=document.getElementById('sellerApplicationStatus');if(!user){if(st)st.textContent='Đăng nhập để đăng ký người bán.';return;}
+  const {data:p}=await window.sb.from('profiles').select('seller_status').eq('auth_user_id',user.id).maybeSingle();
+  if(st)st.textContent='Trạng thái người bán: '+(p?.seller_status||'chưa đăng ký');
+  const box=document.getElementById('sellerListings');if(box){const {data:rows,error}=await window.sb.from('products').select('id,title,price,status,created_at').eq('seller_id',user.id).order('created_at',{ascending:false}).limit(25);box.innerHTML=error?'Chưa tải được tin đăng.':(rows||[]).map(x=>`<div class="history-row"><b>${pdmText(x.title)}</b><div>${pdmVnd(x.price)} • ${pdmText(x.status||'pending')}</div></div>`).join('')||'Bạn chưa đăng tài khoản nào.';}
+}
+async function applySeller(){
+  const {data:{user}}=await window.sb.auth.getUser();if(!user){alert('Vui lòng đăng nhập.');return;}
+  const display_name=document.getElementById('sellerName').value.trim(),contact=document.getElementById('sellerContact').value.trim(),game=document.getElementById('sellerGame').value,description=document.getElementById('sellerDescription').value.trim();
+  if(!display_name||!contact){alert('Vui lòng nhập tên cửa hàng và thông tin liên hệ.');return;}
+  const {data:p}=await window.sb.from('profiles').select('seller_status').eq('auth_user_id',user.id).maybeSingle();
+  if(p?.seller_status==='approved'){alert('Tài khoản của bạn đã được duyệt người bán.');return;}
+  const {error}=await window.sb.from('seller_applications').insert({user_id:user.id,contact_email:user.email,display_name,contact,game,description,status:'pending'});
+  if(error){alert('Không gửi được đăng ký: '+error.message);return;}
+  const profileUpsert=await window.sb.from('profiles').upsert({auth_user_id:user.id,username:display_name,seller_status:'pending'},{onConflict:'auth_user_id'});
+  if(profileUpsert.error){console.warn('Chưa cập nhật trạng thái hồ sơ người bán:',profileUpsert.error.message);}
+  alert('Đã gửi đăng ký. Quản trị viên sẽ xét duyệt.');loadSellerArea();
+}
+async function submitSellerProduct(){
+  const {data:{user}}=await window.sb.auth.getUser();if(!user){alert('Vui lòng đăng nhập.');return;}
+  const {data:p}=await window.sb.from('profiles').select('seller_status').eq('auth_user_id',user.id).maybeSingle();
+  if(p?.seller_status!=='approved'){alert('Bạn cần được duyệt người bán trước khi đăng acc.');return;}
+  const title=document.getElementById('sellerProductTitle').value.trim(),game=document.getElementById('sellerProductGame').value,price=Number(document.getElementById('sellerProductPrice').value),image_url=document.getElementById('sellerProductImage').value.trim(),description=document.getElementById('sellerProductDescription').value.trim();
+  if(!title||!Number.isSafeInteger(price)||price<1000){alert('Nhập tên tài khoản và giá hợp lệ.');return;}
+  if(image_url&&!/^https:\/\//i.test(image_url)){alert('Link ảnh phải bắt đầu bằng https://');return;}
+  const payload={title,game,price,description,image_url:image_url||null,seller_id:user.id,status:'pending'};
+  const {error}=await window.sb.from('products').insert(payload);
+  if(error){alert('Không gửi được tin đăng: '+error.message);return;}
+  alert('Tin đăng đã gửi và đang chờ quản trị viên duyệt.');['sellerProductTitle','sellerProductPrice','sellerProductImage','sellerProductDescription'].forEach(id=>document.getElementById(id).value='');loadSellerArea();
+}
+
+// Admin functions: all restricted through is_admin RPC and RLS policies.
+async function pdmRequireAdmin(){const {data,error}=await window.sb.rpc('is_admin');if(error||!data){alert('Bạn không có quyền quản trị.');return false;}return true;}
+async function refreshAdminVisibility(){const {data:{session}}=await window.sb.auth.getSession();if(!session)return;const {data}=await window.sb.rpc('is_admin');const el=document.getElementById('accountAdminTools');if(el)el.style.display=data?'block':'none';}
+async function adminCustomerDirectory(){
+ if(!await pdmRequireAdmin())return;const {data:rows,error}=await window.sb.from('profiles').select('auth_user_id,username,contact_email,contact_phone,zalo_contact,facebook_link,location,favorite_game,seller_status').order('username');
+ if(error){alert('Không tải được thông tin khách hàng: '+error.message);return;}
+ const box=pdmAdminModal('adminCustomerBox','THÔNG TIN KHÁCH HÀNG');box.innerHTML+=`<input id="customerSearch" placeholder="Tìm tên, email, Zalo..." style="width:100%;padding:12px;margin:12px 0;background:#211d35;color:white;border:1px solid #59417d"><div id="customerRows">${pdmCustomerRows(rows||[])}</div>`;
+ document.getElementById('customerSearch').oninput=e=>{const q=e.target.value.toLowerCase();document.getElementById('customerRows').innerHTML=pdmCustomerRows((rows||[]).filter(x=>[x.username,x.contact_email,x.contact_phone,x.zalo_contact].join(' ').toLowerCase().includes(q)));};
+}
+function pdmCustomerRows(rows){return rows.map(r=>`<div style="background:#211d35;padding:13px;margin:10px 0;border-radius:12px"><b>${pdmText(r.username||'Chưa có tên')}</b><p>Email: ${pdmText(r.contact_email)}</p><p>Điện thoại: ${pdmText(r.contact_phone)}</p><p>Zalo: ${pdmText(r.zalo_contact)}</p><p>Facebook: ${r.facebook_link?`<a href="${pdmText(r.facebook_link)}" target="_blank" rel="noopener">Mở trang</a>`:'Chưa có'}</p><p>Khu vực: ${pdmText(r.location)} • Game: ${pdmText(r.favorite_game)}</p><small>UID: ${pdmText(r.auth_user_id)} • Người bán: ${pdmText(r.seller_status||'none')}</small></div>`).join('')||'<p>Không có khách hàng.</p>';}
+function pdmAdminModal(id,title){document.getElementById(id)?.remove();const box=document.createElement('div');box.id=id;box.style.cssText='position:fixed;inset:0;z-index:100010;background:#100f1b;color:white;padding:18px;overflow:auto';box.innerHTML=`<h2>${title}</h2><button onclick="document.getElementById('${id}').remove()">Đóng</button>`;document.body.appendChild(box);return box;}
+async function adminNotifications(){
+ if(!await pdmRequireAdmin())return;const box=pdmAdminModal('adminNoticeBox','ĐĂNG THÔNG BÁO');box.innerHTML+=`<div class="card"><label>Tiêu đề</label><input id="adminNoticeTitle" style="width:100%;padding:12px"><label>Nội dung</label><textarea id="adminNoticeMessage" rows="4" style="width:100%;padding:12px"></textarea><button class="wallet-action" onclick="publishAnnouncement()">Đăng thông báo</button></div>`;
+ const {data:rows}=await window.sb.from('site_announcements').select('*').order('created_at',{ascending:false}).limit(25);box.innerHTML+=`<h3>Thông báo đã đăng</h3>`+(rows||[]).map(r=>`<div class="card"><b>${pdmText(r.title)}</b><p>${pdmText(r.message)}</p><small>${r.is_active?'Đang hiển thị':'Đã ẩn'}</small><button onclick="toggleAnnouncement('${r.id}',${!r.is_active})">${r.is_active?'Ẩn':'Hiện'}</button></div>`).join('');
+}
+async function publishAnnouncement(){const title=document.getElementById('adminNoticeTitle').value.trim(),message=document.getElementById('adminNoticeMessage').value.trim();if(!title||!message){alert('Nhập tiêu đề và nội dung.');return;}const {error}=await window.sb.from('site_announcements').insert({title,message,is_active:true});if(error){alert(error.message);return;}alert('Đã đăng thông báo.');adminNotifications();}
+async function toggleAnnouncement(id,is_active){const {error}=await window.sb.from('site_announcements').update({is_active}).eq('id',id);if(error){alert(error.message);return;}adminNotifications();}
+async function adminSupportTickets(){if(!await pdmRequireAdmin())return;const {data:rows,error}=await window.sb.from('support_tickets').select('*').order('created_at',{ascending:false}).limit(100);if(error){alert(error.message);return;}const box=pdmAdminModal('adminSupportBox','YÊU CẦU HỖ TRỢ');box.innerHTML+=(rows||[]).map(r=>`<div class="card"><b>${pdmText(r.subject)}</b><p>${pdmText(r.message)}</p><p>Liên hệ: ${pdmText(r.contact)} • User: ${pdmText(r.user_id)}</p><p>Trạng thái: ${pdmText(r.status)}</p><textarea id="reply_${r.id}" placeholder="Phản hồi khách hàng" style="width:100%;padding:10px">${pdmText(r.admin_reply||'')}</textarea><button onclick="replySupport('${r.id}')">Lưu phản hồi</button><button onclick="closeSupport('${r.id}')">Đóng yêu cầu</button></div>`).join('')||'<p>Chưa có yêu cầu.</p>';}
+async function replySupport(id){const admin_reply=document.getElementById('reply_'+id).value.trim();const {error}=await window.sb.from('support_tickets').update({admin_reply,status:'answered'}).eq('id',id);if(error){alert(error.message);return;}alert('Đã lưu phản hồi.');adminSupportTickets();}
+async function closeSupport(id){const {error}=await window.sb.from('support_tickets').update({status:'closed'}).eq('id',id);if(error){alert(error.message);return;}adminSupportTickets();}
+async function adminSellerApplications(){if(!await pdmRequireAdmin())return;const {data:rows,error}=await window.sb.from('seller_applications').select('*').order('created_at',{ascending:false}).limit(100);if(error){alert(error.message);return;}const box=pdmAdminModal('adminSellerAppsBox','ĐĂNG KÝ NGƯỜI BÁN');box.innerHTML+=(rows||[]).map(r=>`<div class="card"><b>${pdmText(r.display_name)}</b><p>${pdmText(r.game)} • ${pdmText(r.contact)}</p><p>${pdmText(r.description)}</p><p>Trạng thái: ${pdmText(r.status)}</p>${r.status==='pending'?`<button onclick="reviewSellerApplication('${r.id}','approve')">Duyệt</button><button onclick="reviewSellerApplication('${r.id}','reject')">Từ chối</button>`:''}</div>`).join('')||'<p>Chưa có đăng ký.</p>';}
+async function reviewSellerApplication(id,action){const {error}=await window.sb.rpc('admin_review_seller_application',{p_application_id:id,p_action:action});if(error){alert(error.message);return;}alert('Đã cập nhật trạng thái người bán.');adminSellerApplications();}
+async function adminSellerListings(){if(!await pdmRequireAdmin())return;const {data:rows,error}=await window.sb.from('products').select('*').eq('status','pending').order('created_at',{ascending:false});if(error){alert(error.message);return;}const box=pdmAdminModal('adminSellerListingsBox','TIN ĐĂNG CHỜ DUYỆT');box.innerHTML+=(rows||[]).map(r=>`<div class="card"><b>${pdmText(r.title)}</b><p>${pdmText(r.game)} • ${pdmVnd(r.price)}</p><p>${pdmText(r.description)}</p>${r.image_url?`<img src="${pdmText(r.image_url)}" style="width:100%;max-height:170px;object-fit:contain">`:''}<button onclick="reviewSellerListing('${r.id}','active')">Duyệt hiển thị</button><button onclick="reviewSellerListing('${r.id}','rejected')">Từ chối</button></div>`).join('')||'<p>Không có tin đăng chờ duyệt.</p>';}
+async function reviewSellerListing(id,status){const {error}=await window.sb.from('products').update({status}).eq('id',id);if(error){alert(error.message);return;}adminSellerListings();await loadProducts();}
+async function adminWithdrawals(){if(!await pdmRequireAdmin())return;const {data:rows,error}=await window.sb.from('wallet_withdrawals').select('*').order('created_at',{ascending:false}).limit(100);if(error){alert(error.message);return;}const box=pdmAdminModal('adminWithdrawBox','QUẢN LÝ RÚT TIỀN');box.innerHTML+=(rows||[]).map(r=>`<div class="card"><b>${pdmVnd(r.amount)}</b><p>User: ${pdmText(r.user_id)}</p><p>${pdmText(r.bank_name)} • ${pdmText(r.account_name)} • ${pdmText(r.account_number)}</p><p>Trạng thái: ${pdmText(r.status)}</p>${r.status==='pending'?`<button onclick="processWithdrawal('${r.id}','paid')">Xác nhận đã chuyển</button><button onclick="processWithdrawal('${r.id}','rejected')">Từ chối và hoàn tiền</button>`:''}</div>`).join('')||'<p>Chưa có yêu cầu rút.</p>';}
+async function processWithdrawal(id,status){const {error}=await window.sb.rpc('admin_process_wallet_withdrawal',{p_withdrawal_id:id,p_status:status});if(error){alert(error.message);return;}alert('Đã xử lý yêu cầu.');adminWithdrawals();}
+
+// Admin visibility and greeting announcement once per session.
+async function updateAuthButtons(){
+  const {data:{session}}=await window.sb.auth.getSession();const login=document.getElementById('loginBtn'),reg=document.getElementById('registerBtn'),account=document.getElementById('accountBtn');
+  if(login)login.style.display=session?'none':'';if(reg)reg.style.display=session?'none':'';if(account){account.style.display=session?'':'none';account.textContent=session?'👤 Tài khoản':'';account.onclick=()=>openTab('account');}
+  if(session){await refreshAdminVisibility();}
+}
+async function showPdmWelcome(){
+  if(sessionStorage.getItem('pdm_welcome_seen'))return;sessionStorage.setItem('pdm_welcome_seen','1');
+  let title='Chào mừng đến với PDM GAMING!',message='Mua bán tài khoản game, kết nối đồng đội và nhận hỗ trợ từ đội ngũ PDM GAMING.';
+  try{const {data}=await window.sb.from('site_announcements').select('title,message').eq('is_active',true).order('created_at',{ascending:false}).limit(1);if(data?.[0]){title=data[0].title;message=data[0].message;}}catch(e){}
+  const box=document.createElement('div');box.id='welcomeModal';box.style.cssText='position:fixed;inset:0;background:#000c;z-index:100020;display:grid;place-items:center;padding:20px';box.innerHTML=`<div style="width:100%;max-width:390px;background:#19152b;color:white;border:1px solid #8450a6;padding:23px;border-radius:22px;text-align:center;box-shadow:0 15px 60px #0009"><div style="font-size:40px">🎮</div><h2 style="color:#ff72bd">${pdmText(title)}</h2><p style="line-height:1.6;color:#d6c8e8">${pdmText(message)}</p><button class="wallet-action" onclick="document.getElementById('welcomeModal').remove()">Bắt đầu khám phá</button></div>`;document.body.appendChild(box);
+}
+async function initPdmExtras(){
+  // Tải hồ sơ cache trước, sau đó đồng bộ hồ sơ mới nhất từ Supabase.
+  const saved=localStorage.getItem('pdmProfile');if(saved){try{myProfile=JSON.parse(saved);}catch(e){}}
+  const {data:{user}}=await window.sb.auth.getUser();
+  if(user){
+    const {data:dbProfile}=await window.sb.from('profiles').select('*').eq('auth_user_id',user.id).maybeSingle();
+    if(dbProfile){myProfile={name:dbProfile.username||'',gender:dbProfile.gender||'',birth:dbProfile.birth_year||'',city:dbProfile.location||'',game:dbProfile.favorite_game||'',rank:dbProfile.rank||'',gameid:dbProfile.game_id||'',mic:dbProfile.has_mic?'Có mic':'Không có mic',avatar_url:dbProfile.avatar_url||null,facebook_link:dbProfile.facebook_link||'',zalo_contact:dbProfile.zalo_contact||'',contact_phone:dbProfile.contact_phone||'',contact_email:dbProfile.contact_email||''};localStorage.setItem('pdmProfile',JSON.stringify(myProfile));}
+  }
+  if(myProfile){
+    const p=myProfile;const map={pname:p.name,gender:p.gender,birth:p.birth,city:p.city,game:p.game,prank:p.rank,gameid:p.gameid,facebookLink:p.facebook_link,zaloContact:p.zalo_contact,contactPhone:p.contact_phone,contactEmail:p.contact_email,mic:p.mic};
+    Object.entries(map).forEach(([id,v])=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;});renderMyProfile();
+  }
+  await loadProducts();await updateAuthButtons();subscribeWorldChat();
+  showPdmWelcome();
+  window.sb.auth.onAuthStateChange(()=>{updateAuthButtons();});
+}
+initPdmExtras();
+</script>
+
+</body>
+</html>
